@@ -8,43 +8,79 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/components/ui/card'
-import { Loader2, ArrowLeft, Save, CheckCircle2 } from 'lucide-react'
+import { Loader2, ArrowLeft, Save } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
+interface PartnerStats {
+    visits: number
+    conversions: number
+    totalEarned: number
+}
+
 export default function PartnerDetailPage({ params }: { params: Promise<{ id: string }> }) {
     const router = useRouter()
-    // Unwrap params using React.use() or await if async component, but 'use client' needs unwrapping
     const { id } = use(params)
 
     const [partner, setPartner] = useState<Partner | null>(null)
+    const [stats, setStats] = useState<PartnerStats>({ visits: 0, conversions: 0, totalEarned: 0 })
     const [loading, setLoading] = useState(true)
     const [saving, setSaving] = useState(false)
-
-    // Form State
     const [formData, setFormData] = useState<Partial<Partner>>({})
 
     const supabase = createClient()
 
     useEffect(() => {
-        const fetchPartner = async () => {
+        const fetchData = async () => {
             setLoading(true)
-            const { data, error } = await supabase
+
+            // Fetch partner
+            const { data: partnerData, error: partnerError } = await supabase
                 .from('partners')
                 .select('*')
                 .eq('id', id)
                 .single()
 
-            if (error) {
+            if (partnerError || !partnerData) {
                 alert('Error fetching partner')
                 router.push('/admin/dashboard')
-            } else {
-                setPartner(data)
-                setFormData(data)
+                return
             }
+
+            setPartner(partnerData)
+            setFormData(partnerData)
+
+            // Fetch stats
+            const referralKey = partnerData.referral_key
+
+            // Visits count
+            const { count: visitsCount } = await supabase
+                .from('visitors')
+                .select('*', { count: 'exact', head: true })
+                .eq('referral_key', referralKey)
+
+            // Conversions count
+            const { data: conversionsData } = await supabase
+                .from('conversions')
+                .select('commission_amount, status')
+                .eq('partner_id', id)
+
+            const conversions = conversionsData || []
+            const conversionsCount = conversions.length
+            const totalEarned = conversions
+                .filter(c => c.status === 'approved' || c.status === 'paid')
+                .reduce((acc, c) => acc + Number(c.commission_amount), 0)
+
+            setStats({
+                visits: visitsCount || 0,
+                conversions: conversionsCount,
+                totalEarned
+            })
+
             setLoading(false)
         }
-        fetchPartner()
+
+        fetchData()
     }, [id, router])
 
     const handleSave = async () => {
@@ -63,8 +99,6 @@ export default function PartnerDetailPage({ params }: { params: Promise<{ id: st
 
         if (error) {
             alert(`Error saving: ${error.message}`)
-        } else {
-            // success feedback
         }
         setSaving(false)
     }
@@ -125,7 +159,7 @@ export default function PartnerDetailPage({ params }: { params: Promise<{ id: st
                                     <Label htmlFor="status">Status</Label>
                                     <select
                                         id="status"
-                                        className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                                        className="flex h-9 w-full rounded-md border border-zinc-300 bg-white px-3 py-1 text-sm text-zinc-900 shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
                                         value={formData.status || 'active'}
                                         onChange={e => setFormData({ ...formData, status: e.target.value as 'active' | 'paused' })}
                                     >
@@ -152,7 +186,7 @@ export default function PartnerDetailPage({ params }: { params: Promise<{ id: st
                                             type="number"
                                             placeholder="Default"
                                             value={formData.commission_dfy_percent || ''}
-                                            onChange={e => setFormData({ ...formData, commission_dfy_percent: e.target.value ? parseFloat(e.target.value) : undefined })} // undefined handles clearing
+                                            onChange={e => setFormData({ ...formData, commission_dfy_percent: e.target.value ? parseFloat(e.target.value) : undefined })}
                                         />
                                         <span className="absolute right-3 top-2.5 text-zinc-400 text-sm">%</span>
                                     </div>
@@ -185,7 +219,7 @@ export default function PartnerDetailPage({ params }: { params: Promise<{ id: st
                     </div>
                 </div>
 
-                {/* RIGHT COLUMN: READ ONLY STATS */}
+                {/* RIGHT COLUMN: STATS */}
                 <div className="space-y-6">
                     <Card className="bg-zinc-50 border-zinc-200">
                         <CardHeader>
@@ -193,17 +227,17 @@ export default function PartnerDetailPage({ params }: { params: Promise<{ id: st
                         </CardHeader>
                         <CardContent className="space-y-4">
                             <div>
-                                <div className="text-2xl font-bold text-zinc-900">$0.00</div>
+                                <div className="text-2xl font-bold text-zinc-900">${stats.totalEarned.toFixed(2)}</div>
                                 <div className="text-xs text-zinc-500">Total Commissions Earned</div>
                             </div>
                             <div className="h-px bg-zinc-200" />
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <div className="text-lg font-semibold text-zinc-900">0</div>
+                                    <div className="text-lg font-semibold text-zinc-900">{stats.visits}</div>
                                     <div className="text-xs text-zinc-500">Visits</div>
                                 </div>
                                 <div>
-                                    <div className="text-lg font-semibold text-zinc-900">0</div>
+                                    <div className="text-lg font-semibold text-zinc-900">{stats.conversions}</div>
                                     <div className="text-xs text-zinc-500">Conversions</div>
                                 </div>
                             </div>
