@@ -285,7 +285,7 @@ function NextActions() {
                 </DialogTrigger>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>Download Unengaged Safety Checklist</DialogTitle>
+                        <DialogTitle>Get Unengaged Safety Checklist</DialogTitle>
                         <DialogDescription>
                             A 10-point checklist to ensure you don't accidentally suppress active customers.
                         </DialogDescription>
@@ -298,7 +298,7 @@ function NextActions() {
                     </div>
                     <DialogFooter>
                         <Button onClick={submitChecklist} disabled={checklistLoading}>
-                            {checklistLoading ? "Sending..." : "Download PDF"}
+                            {checklistLoading ? "Sending..." : "Get safety checklist"}
                         </Button>
                     </DialogFooter>
                 </DialogContent>
