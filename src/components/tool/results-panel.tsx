@@ -225,7 +225,7 @@ function NextActions() {
     // Form states
     const [checklistEmail, setChecklistEmail] = React.useState("");
 
-    const subscribe = async (email: string, firstName: string | undefined, setLoading: (l: boolean) => void, setOpen: (o: boolean) => void, successMessage: string, eventName: string) => {
+    const subscribe = async (email: string, firstName: string | undefined, setLoading: (l: boolean) => void, setOpen: (o: boolean) => void, successMessage: string, eventName: string, onSuccess?: () => void) => {
         if (!email) {
             toast.error("Please enter your email address.");
             return;
@@ -244,6 +244,11 @@ function NextActions() {
             trackEvent(eventName, { email });
             toast.success(successMessage);
             setOpen(false);
+
+            // Call optional onSuccess callback (e.g., open a new tab)
+            if (onSuccess) {
+                onSuccess();
+            }
         } catch (error) {
             console.error(error);
             toast.error("Something went wrong. Please try again.");
@@ -252,7 +257,16 @@ function NextActions() {
         }
     };
 
-    const submitChecklist = () => subscribe(checklistEmail, undefined, setChecklistLoading, setChecklistOpen, "Checklist sent to your inbox!", "checklist_submitted");
+    const submitChecklist = () => subscribe(
+        checklistEmail,
+        undefined,
+        setChecklistLoading,
+        setChecklistOpen,
+        "Checklist sent to your inbox!",
+        "checklist_submitted",
+        // Open the safety checklist in a new tab after successful submission
+        () => window.open("https://reengage.pro/del/reengage-safety-checklist.html", "_blank")
+    );
 
     return (
         <div className="grid gap-4 md:grid-cols-3 pt-8">
