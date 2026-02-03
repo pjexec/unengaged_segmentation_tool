@@ -1,78 +1,93 @@
 
 import { NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase-server'
+import { createServiceClient } from '@/lib/supabase-service'
 
 export async function POST(request: Request) {
-    const supabase = await createClient()
-
-    // We don't strictly require session for tracking (public endpoint), 
-    // but we might want to rate limit or check CORS.
-    // For now, open endpoint.
-
     try {
+        const supabase = createServiceClient()
+
         const body = await request.json()
         const { eventType, ref, visitorId, asset, partnerId } = body
+
+        console.log('[Track API] Received:', { eventType, ref, visitorId, asset, partnerId })
 
         if (!eventType) {
             return NextResponse.json({ error: 'Missing eventType' }, { status: 400 })
         }
 
-        // 1. Identify Partner
+        if (!visitorId) {
+            return NextResponse.json({ error: 'Missing visitorId' }, { status: 400 })
+        }
+
+        // 1. Identify Partner from referral key
         let targetPartnerId = partnerId
-        let targetRef = ref
+        const targetRef = ref
 
         if (!targetPartnerId && targetRef) {
-            const { data: partner } = await supabase
+            const { data: partner, error: partnerError } = await supabase
                 .from('partners')
                 .select('id')
                 .eq('referral_key', targetRef)
                 .single()
 
+            if (partnerError) {
+                console.log('[Track API] Partner lookup failed:', partnerError.message)
+            }
+
             if (partner) {
                 targetPartnerId = partner.id
+                console.log('[Track API] Found partner:', targetPartnerId)
             }
         }
 
-        // If no partner found for ref, we might still track event if just for analytics, 
-        // but requirements say "Attribution + Conversion stats". 
-        // If we can't link to a partner, it's just general traffic.
-        // We'll proceed but partner_id might be null.
+        // 2. Create/Update Visitor FIRST (before event, due to foreign key)
+        if (visitorId && targetRef) {
+            const { error: visitorError } = await supabase
+                .from('visitors')
+                .upsert({
+                    id: visitorId,
+                    referral_key: targetRef,
+                    first_seen: new Date().toISOString(),
+                    last_seen: new Date().toISOString()
+                }, {
+                    onConflict: 'id',
+                    ignoreDuplicates: false
+                })
 
-        // 2. Handle Visitor
-        // If it's a 'tool_viewed' (first touch) and we have a ref, ensure visitor exists or create
-        // In V1 prompt: "Visitors table: id (anonymous visitor id), referral_key..."
-        // We assume the client sends a generated visitorId (e.g. from localstorage)
-
-        // Insert Event
-        const { error: eventError } = await supabase
-            .from('events')
-            .insert({
-                event_type: eventType,
-                visitor_id: visitorId, // assumed UUID sent by client
-                partner_id: targetPartnerId,
-                asset: asset,
-            })
-
-        if (eventError) {
-            console.error('Event tracking error:', eventError)
-            return NextResponse.json({ error: 'Failed to track event' }, { status: 500 })
+            if (visitorError) {
+                console.error('[Track API] Visitor upsert error:', visitorError)
+                // Don't fail - visitor might exist with different ref, just log it
+            } else {
+                console.log('[Track API] Visitor upserted:', visitorId)
+            }
         }
 
-        // 3. Handle specific logic (e.g. creating Visitor record if not exists)
-        // For efficiency, we might just insert into 'visitors' on 'tool_viewed' with ON CONFLICT DO NOTHING
-        // using the visitorId.
-        // However, Supabase/Postgres simple insert:
-        if (eventType === 'tool_viewed' && visitorId && targetRef) {
-            await supabase.from('visitors').upsert({
-                id: visitorId,
-                referral_key: targetRef,
-                last_seen: new Date().toISOString()
-            }, { onConflict: 'id' })
+        // 3. Insert Event (with or without visitor_id depending on whether visitor exists)
+        const eventData: Record<string, any> = {
+            event_type: eventType,
+            partner_id: targetPartnerId || null,
+            asset: asset || null,
+        }
+
+        // Only add visitor_id if we have a ref (visitor was created)
+        if (visitorId && targetRef) {
+            eventData.visitor_id = visitorId
+        }
+
+        const { error: eventError } = await supabase
+            .from('events')
+            .insert(eventData)
+
+        if (eventError) {
+            console.error('[Track API] Event insert error:', eventError)
+            // Don't return error - event logging is best-effort
+        } else {
+            console.log('[Track API] Event logged:', eventType)
         }
 
         return NextResponse.json({ success: true })
     } catch (e) {
-        console.error('Tracking API error:', e)
+        console.error('[Track API] Error:', e)
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
     }
 }
