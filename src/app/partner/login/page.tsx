@@ -22,12 +22,22 @@ export default function PartnerLoginPage() {
         setError(null)
 
         try {
+            console.log('[Login] Starting auth request...')
             const supabase = createClient()
 
-            const { error } = await supabase.auth.signInWithPassword({
+            // Add timeout to prevent infinite spinner
+            const timeoutPromise = new Promise((_, reject) => {
+                setTimeout(() => reject(new Error('Login request timed out. Please check your connection.')), 10000)
+            })
+
+            const authPromise = supabase.auth.signInWithPassword({
                 email,
                 password,
             })
+
+            const { error } = await Promise.race([authPromise, timeoutPromise]) as Awaited<typeof authPromise>
+
+            console.log('[Login] Auth response received:', error ? error.message : 'success')
 
             if (error) {
                 setError(error.message)
@@ -38,8 +48,8 @@ export default function PartnerLoginPage() {
                 // Loading will remain true during redirect
             }
         } catch (err) {
-            console.error('Login error:', err)
-            setError('An unexpected error occurred. Please try again.')
+            console.error('[Login] Error:', err)
+            setError(err instanceof Error ? err.message : 'An unexpected error occurred. Please try again.')
             setLoading(false)
         }
     }
