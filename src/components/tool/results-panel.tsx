@@ -292,7 +292,7 @@ function NextActions() {
                     </DialogHeader>
                     <div className="space-y-4 py-4">
                         <div className="grid gap-2">
-                            <Label>Email Address</Label>
+                            <Label>Email Address (Optional)</Label>
                             <Input placeholder="you@example.com" value={checklistEmail} onChange={(e) => setChecklistEmail(e.target.value)} />
                         </div>
                     </div>
@@ -327,12 +327,12 @@ function NextActions() {
                     </DialogHeader>
                     <div className="grid gap-4 py-4">
                         <div className="grid gap-2">
-                            <Label>Name</Label>
-                            <Input placeholder="Alex Smith" value={dfyName} onChange={(e) => setDfyName(e.target.value)} />
+                            <Label>Full Name</Label>
+                            <Input placeholder="Jane Doe" value={dfyName} onChange={(e) => setDfyName(e.target.value)} />
                         </div>
                         <div className="grid gap-2">
-                            <Label>Email</Label>
-                            <Input placeholder="alex@company.com" value={dfyEmail} onChange={(e) => setDfyEmail(e.target.value)} />
+                            <Label>Email Address (Optional)</Label>
+                            <Input placeholder="jane@example.com" value={dfyEmail} onChange={(e) => setDfyEmail(e.target.value)} />
                         </div>
                     </div>
                     <DialogFooter>
