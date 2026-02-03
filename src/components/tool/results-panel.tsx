@@ -262,7 +262,7 @@ function NextActions() {
         undefined,
         setChecklistLoading,
         setChecklistOpen,
-        "Checklist sent to your inbox!",
+        "Opening your safety checklist!",
         "checklist_submitted",
         // Open the safety checklist in a new tab after successful submission
         () => window.open("https://reengage.pro/del/reengage-safety-checklist.html", "_blank")
