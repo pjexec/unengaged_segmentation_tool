@@ -7,6 +7,7 @@ import { InputForm } from "@/components/tool/input-form";
 import { ResultsPanel } from "@/components/tool/results-panel";
 import { initAnalytics, trackEvent } from "@/lib/analytics";
 import { ModeToggle } from "@/components/mode-toggle";
+import { Toaster } from "sonner";
 
 const DEFAULT_INPUT: ToolInput = {
   primarySignal: "opens_clicks",
@@ -115,6 +116,7 @@ export default function Home() {
 
         </div>
       </div>
+      <Toaster richColors position="top-center" />
     </div>
   );
 }
