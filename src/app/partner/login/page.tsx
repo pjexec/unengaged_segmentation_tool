@@ -20,19 +20,27 @@ export default function PartnerLoginPage() {
         e.preventDefault()
         setLoading(true)
         setError(null)
-        const supabase = createClient()
 
-        const { error } = await supabase.auth.signInWithPassword({
-            email,
-            password,
-        })
+        try {
+            const supabase = createClient()
 
-        if (error) {
-            setError(error.message)
+            const { error } = await supabase.auth.signInWithPassword({
+                email,
+                password,
+            })
+
+            if (error) {
+                setError(error.message)
+                setLoading(false)
+            } else {
+                router.push('/partner/dashboard')
+                router.refresh()
+                // Loading will remain true during redirect
+            }
+        } catch (err) {
+            console.error('Login error:', err)
+            setError('An unexpected error occurred. Please try again.')
             setLoading(false)
-        } else {
-            router.push('/partner/dashboard')
-            router.refresh()
         }
     }
 
@@ -48,7 +56,7 @@ export default function PartnerLoginPage() {
 
                 <form className="space-y-6" onSubmit={handleLogin}>
                     <div className="space-y-2">
-                        <Label htmlFor="email">Email address</Label>
+                        <Label htmlFor="email" className="text-zinc-700">Email address</Label>
                         <Input
                             id="email"
                             type="email"
@@ -57,12 +65,13 @@ export default function PartnerLoginPage() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             disabled={loading}
+                            className="bg-white text-zinc-900 border-zinc-300"
                         />
                     </div>
 
                     <div className="space-y-2">
                         <div className="flex items-center justify-between">
-                            <Label htmlFor="password">Password</Label>
+                            <Label htmlFor="password" className="text-zinc-700">Password</Label>
                         </div>
                         <Input
                             id="password"
@@ -71,6 +80,7 @@ export default function PartnerLoginPage() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             disabled={loading}
+                            className="bg-white text-zinc-900 border-zinc-300"
                         />
                     </div>
 
