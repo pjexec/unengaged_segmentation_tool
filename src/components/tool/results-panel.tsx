@@ -222,19 +222,8 @@ function NextActions() {
     const [checklistLoading, setChecklistLoading] = React.useState(false);
     const [checklistOpen, setChecklistOpen] = React.useState(false);
 
-    const [dfyLoading, setDfyLoading] = React.useState(false);
-    const [dfyOpen, setDfyOpen] = React.useState(false);
-
-    const [waitlistLoading, setWaitlistLoading] = React.useState(false);
-    const [waitlistOpen, setWaitlistOpen] = React.useState(false);
-
     // Form states
     const [checklistEmail, setChecklistEmail] = React.useState("");
-
-    const [dfyName, setDfyName] = React.useState("");
-    const [dfyEmail, setDfyEmail] = React.useState("");
-
-    const [waitlistEmail, setWaitlistEmail] = React.useState("");
 
     const subscribe = async (email: string, firstName: string | undefined, setLoading: (l: boolean) => void, setOpen: (o: boolean) => void, successMessage: string, eventName: string) => {
         if (!email) {
@@ -264,12 +253,10 @@ function NextActions() {
     };
 
     const submitChecklist = () => subscribe(checklistEmail, undefined, setChecklistLoading, setChecklistOpen, "Checklist sent to your inbox!", "checklist_submitted");
-    const submitDFY = () => subscribe(dfyEmail, dfyName, setDfyLoading, setDfyOpen, "Request received! We'll be in touch.", "dfy_submitted");
-    const submitWaitlist = () => subscribe(waitlistEmail, undefined, setWaitlistLoading, setWaitlistOpen, "You're on the list!", "waitlist_submitted");
 
     return (
         <div className="grid gap-4 md:grid-cols-3 pt-8">
-            {/* Checklist */}
+            {/* Checklist - keeps the opt-in modal */}
             <Dialog open={checklistOpen} onOpenChange={(open) => {
                 setChecklistOpen(open);
                 if (open) trackEvent('checklist_modal_opened');
@@ -287,7 +274,7 @@ function NextActions() {
                     <DialogHeader>
                         <DialogTitle>Get Unengaged Safety Checklist</DialogTitle>
                         <DialogDescription>
-                            A 10-point checklist to ensure you don't accidentally suppress active customers.
+                            A 10-point checklist to ensure you don't accidentally suppress active customers or inadvertently destroy your inbox deliverability.
                         </DialogDescription>
                     </DialogHeader>
                     <div className="space-y-4 py-4">
@@ -304,79 +291,35 @@ function NextActions() {
                 </DialogContent>
             </Dialog>
 
-            {/* DFY */}
-            <Dialog open={dfyOpen} onOpenChange={(open) => {
-                setDfyOpen(open);
-                if (open) trackEvent('dfy_modal_opened');
-            }}>
-                <DialogTrigger asChild>
-                    <Button variant="outline" className="h-full w-full flex-col items-start justify-start p-4 hover:border-primary/50 transition-colors whitespace-normal text-left">
-                        <Terminal className="mb-2 h-5 w-5 text-primary shrink-0" />
-                        <div className="flex flex-col items-start gap-1">
-                            <span className="font-semibold text-base">Request Implementation</span>
-                            <span className="text-xs text-muted-foreground font-normal leading-normal">We define and build these segments for you.</span>
-                        </div>
-                    </Button>
-                </DialogTrigger>
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>Request Expert Implementation</DialogTitle>
-                        <DialogDescription>
-                            Stop guessing. We'll audit your list and build the segments in your ESP.
-                        </DialogDescription>
-                    </DialogHeader>
-                    <div className="grid gap-4 py-4">
-                        <div className="grid gap-2">
-                            <Label>Full Name</Label>
-                            <Input placeholder="Jane Doe" value={dfyName} onChange={(e) => setDfyName(e.target.value)} />
-                        </div>
-                        <div className="grid gap-2">
-                            <Label>Email Address (Optional)</Label>
-                            <Input placeholder="jane@example.com" value={dfyEmail} onChange={(e) => setDfyEmail(e.target.value)} />
-                        </div>
-                    </div>
-                    <DialogFooter>
-                        <Button onClick={submitDFY} disabled={dfyLoading}>
-                            {dfyLoading ? "Requesting..." : "Request Call"}
-                        </Button>
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
+            {/* DFY - direct link to dfy.reengage.pro */}
+            <a
+                href="https://dfy.reengage.pro"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackEvent('dfy_link_clicked')}
+                className="inline-flex h-full w-full flex-col items-start justify-start p-4 rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground hover:border-primary/50 transition-colors whitespace-normal text-left"
+            >
+                <Terminal className="mb-2 h-5 w-5 text-primary shrink-0" />
+                <div className="flex flex-col items-start gap-1">
+                    <span className="font-semibold text-base">Request Implementation</span>
+                    <span className="text-xs text-muted-foreground font-normal leading-normal">We define and build these segments for you.</span>
+                </div>
+            </a>
 
-            {/* Waitlist */}
-            <Dialog open={waitlistOpen} onOpenChange={(open) => {
-                setWaitlistOpen(open);
-                if (open) trackEvent('waitlist_modal_opened');
-            }}>
-                <DialogTrigger asChild>
-                    <Button variant="outline" className="h-full w-full flex-col items-start justify-start p-4 hover:border-primary/50 transition-colors whitespace-normal text-left">
-                        <ArrowRight className="mb-2 h-5 w-5 text-primary shrink-0" />
-                        <div className="flex flex-col items-start gap-1">
-                            <span className="font-semibold text-base">Join ReEngage Pro</span>
-                            <span className="text-xs text-muted-foreground font-normal leading-normal">Get early access to our automated cleaning tool.</span>
-                        </div>
-                    </Button>
-                </DialogTrigger>
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>Join the ReEngage Pro Waitlist</DialogTitle>
-                        <DialogDescription>
-                            We're building a tool that does this automatically. Want in?
-                        </DialogDescription>
-                    </DialogHeader>
-                    <div className="grid gap-4 py-4">
-                        <div className="grid gap-2">
-                            <Label>Email</Label>
-                            <Input placeholder="alex@company.com" value={waitlistEmail} onChange={(e) => setWaitlistEmail(e.target.value)} />
-                        </div>
-                    </div>
-                    <DialogFooter>
-                        <Button onClick={submitWaitlist} disabled={waitlistLoading}>
-                            {waitlistLoading ? "Joining..." : "Join Waitlist"}
-                        </Button>
-                    </DialogFooter>
-                </DialogContent>
-            </Dialog>
+            {/* ReEngage Pro - direct link to reengage.pro */}
+            <a
+                href="https://reengage.pro"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => trackEvent('reengage_pro_link_clicked')}
+                className="inline-flex h-full w-full flex-col items-start justify-start p-4 rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground hover:border-primary/50 transition-colors whitespace-normal text-left"
+            >
+                <ArrowRight className="mb-2 h-5 w-5 text-primary shrink-0" />
+                <div className="flex flex-col items-start gap-1">
+                    <span className="font-semibold text-base">Join ReEngage Pro</span>
+                    <span className="text-xs text-muted-foreground font-normal leading-normal">Get early access to our automated cleaning tool.</span>
+                </div>
+            </a>
         </div>
     );
 }
