@@ -1,4 +1,4 @@
-"use client";
+import { toast } from "sonner";
 
 import * as React from "react";
 import { ToolOutput } from "@/lib/types";
@@ -219,16 +219,61 @@ function TierCard({ icon, title, range, description, actions, colorClass }: any)
 }
 
 function NextActions() {
-    const [email, setEmail] = React.useState("");
+    const [checklistLoading, setChecklistLoading] = React.useState(false);
+    const [checklistOpen, setChecklistOpen] = React.useState(false);
 
-    const submitChecklist = () => trackEvent('checklist_submitted', { email });
-    const submitDFY = () => trackEvent('dfy_submitted');
-    const submitWaitlist = () => trackEvent('waitlist_submitted', { email });
+    const [dfyLoading, setDfyLoading] = React.useState(false);
+    const [dfyOpen, setDfyOpen] = React.useState(false);
+
+    const [waitlistLoading, setWaitlistLoading] = React.useState(false);
+    const [waitlistOpen, setWaitlistOpen] = React.useState(false);
+
+    // Form states
+    const [checklistEmail, setChecklistEmail] = React.useState("");
+
+    const [dfyName, setDfyName] = React.useState("");
+    const [dfyEmail, setDfyEmail] = React.useState("");
+
+    const [waitlistEmail, setWaitlistEmail] = React.useState("");
+
+    const subscribe = async (email: string, firstName: string | undefined, setLoading: (l: boolean) => void, setOpen: (o: boolean) => void, successMessage: string, eventName: string) => {
+        if (!email) {
+            toast.error("Please enter your email address.");
+            return;
+        }
+
+        setLoading(true);
+        try {
+            const res = await fetch('/api/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, firstName }),
+            });
+
+            if (!res.ok) throw new Error('Subscription failed');
+
+            trackEvent(eventName, { email });
+            toast.success(successMessage);
+            setOpen(false);
+        } catch (error) {
+            console.error(error);
+            toast.error("Something went wrong. Please try again.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const submitChecklist = () => subscribe(checklistEmail, undefined, setChecklistLoading, setChecklistOpen, "Checklist sent to your inbox!", "checklist_submitted");
+    const submitDFY = () => subscribe(dfyEmail, dfyName, setDfyLoading, setDfyOpen, "Request received! We'll be in touch.", "dfy_submitted");
+    const submitWaitlist = () => subscribe(waitlistEmail, undefined, setWaitlistLoading, setWaitlistOpen, "You're on the list!", "waitlist_submitted");
 
     return (
         <div className="grid gap-4 md:grid-cols-3 pt-8">
             {/* Checklist */}
-            <Dialog onOpenChange={(open) => open && trackEvent('checklist_modal_opened')}>
+            <Dialog open={checklistOpen} onOpenChange={(open) => {
+                setChecklistOpen(open);
+                if (open) trackEvent('checklist_modal_opened');
+            }}>
                 <DialogTrigger asChild>
                     <Button variant="outline" className="h-full w-full flex-col items-start justify-start p-4 hover:border-primary/50 transition-colors whitespace-normal text-left">
                         <Download className="mb-2 h-5 w-5 text-primary shrink-0" />
@@ -247,18 +292,23 @@ function NextActions() {
                     </DialogHeader>
                     <div className="space-y-4 py-4">
                         <div className="grid gap-2">
-                            <Label>Email Address (Optional)</Label>
-                            <Input placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+                            <Label>Email Address</Label>
+                            <Input placeholder="you@example.com" value={checklistEmail} onChange={(e) => setChecklistEmail(e.target.value)} />
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button onClick={submitChecklist}>Download PDF</Button>
+                        <Button onClick={submitChecklist} disabled={checklistLoading}>
+                            {checklistLoading ? "Sending..." : "Download PDF"}
+                        </Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
 
             {/* DFY */}
-            <Dialog onOpenChange={(open) => open && trackEvent('dfy_modal_opened')}>
+            <Dialog open={dfyOpen} onOpenChange={(open) => {
+                setDfyOpen(open);
+                if (open) trackEvent('dfy_modal_opened');
+            }}>
                 <DialogTrigger asChild>
                     <Button variant="outline" className="h-full w-full flex-col items-start justify-start p-4 hover:border-primary/50 transition-colors whitespace-normal text-left">
                         <Terminal className="mb-2 h-5 w-5 text-primary shrink-0" />
@@ -278,21 +328,26 @@ function NextActions() {
                     <div className="grid gap-4 py-4">
                         <div className="grid gap-2">
                             <Label>Name</Label>
-                            <Input placeholder="Alex Smith" />
+                            <Input placeholder="Alex Smith" value={dfyName} onChange={(e) => setDfyName(e.target.value)} />
                         </div>
                         <div className="grid gap-2">
                             <Label>Email</Label>
-                            <Input placeholder="alex@company.com" />
+                            <Input placeholder="alex@company.com" value={dfyEmail} onChange={(e) => setDfyEmail(e.target.value)} />
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button onClick={submitDFY}>Request Call</Button>
+                        <Button onClick={submitDFY} disabled={dfyLoading}>
+                            {dfyLoading ? "Requesting..." : "Request Call"}
+                        </Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
 
             {/* Waitlist */}
-            <Dialog onOpenChange={(open) => open && trackEvent('waitlist_modal_opened')}>
+            <Dialog open={waitlistOpen} onOpenChange={(open) => {
+                setWaitlistOpen(open);
+                if (open) trackEvent('waitlist_modal_opened');
+            }}>
                 <DialogTrigger asChild>
                     <Button variant="outline" className="h-full w-full flex-col items-start justify-start p-4 hover:border-primary/50 transition-colors whitespace-normal text-left">
                         <ArrowRight className="mb-2 h-5 w-5 text-primary shrink-0" />
@@ -312,11 +367,13 @@ function NextActions() {
                     <div className="grid gap-4 py-4">
                         <div className="grid gap-2">
                             <Label>Email</Label>
-                            <Input placeholder="alex@company.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+                            <Input placeholder="alex@company.com" value={waitlistEmail} onChange={(e) => setWaitlistEmail(e.target.value)} />
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button onClick={submitWaitlist}>Join Waitlist</Button>
+                        <Button onClick={submitWaitlist} disabled={waitlistLoading}>
+                            {waitlistLoading ? "Joining..." : "Join Waitlist"}
+                        </Button>
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
