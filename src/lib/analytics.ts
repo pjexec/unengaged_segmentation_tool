@@ -1,41 +1,73 @@
+// Partner tracking analytics
+
+let trackingInitialized = false;
+
 export function initAnalytics() {
     if (typeof window === 'undefined') return;
+    if (trackingInitialized) return;
 
-    // 1. Capture Ref
+    trackingInitialized = true;
+
+    // 1. Capture Ref from URL
     const urlParams = new URLSearchParams(window.location.search);
     const ref = urlParams.get('ref');
     if (ref) {
+        // First-touch attribution: only store if not already set
         if (!localStorage.getItem('reengage_ref')) {
             localStorage.setItem('reengage_ref', ref);
         }
     }
 
-    // 2. Visitor ID
+    // 2. Visitor ID (persistent anonymous ID)
     let vid = localStorage.getItem('reengage_vid');
     if (!vid) {
         vid = crypto.randomUUID();
         localStorage.setItem('reengage_vid', vid);
     }
-
-    // 3. Track Tool View
-    // We handle this via explicit event call in page.tsx useEffect
 }
 
-export function trackEvent(eventName: string, props: Record<string, any> = {}) {
+export async function trackEvent(eventName: string, props: Record<string, any> = {}) {
     if (typeof window === 'undefined') return;
 
     const ref = localStorage.getItem('reengage_ref');
     const vid = localStorage.getItem('reengage_vid');
 
     const payload = {
-        event: eventName,
-        timestamp: new Date().toISOString(),
-        vid,
+        eventType: eventName,
         ref,
+        visitorId: vid,
+        asset: props.asset || null,
         ...props
     };
 
-    console.log('[Analytics]', payload);
+    console.log('[Analytics] Tracking:', payload);
 
-    // Future: POST to endpoint
+    // POST to tracking API
+    try {
+        const response = await fetch('/api/track', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+            console.error('[Analytics] Track failed:', response.status);
+        }
+    } catch (error) {
+        console.error('[Analytics] Track error:', error);
+    }
+}
+
+// Helper to get the current referral key (for debugging)
+export function getReferralKey(): string | null {
+    if (typeof window === 'undefined') return null;
+    return localStorage.getItem('reengage_ref');
+}
+
+// Helper to get visitor ID
+export function getVisitorId(): string | null {
+    if (typeof window === 'undefined') return null;
+    return localStorage.getItem('reengage_vid');
 }
