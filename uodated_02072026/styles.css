@@ -1,0 +1,884 @@
+/* Global Reset & Box Sizing */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: #e0e0e0;
+    background-color: #24282a;
+    line-height: 1.6;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Flex Container for Two-Panel Layout */
+.container {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+}
+
+/* Left Panel: Fixed Input Form */
+.left-panel {
+    width: 420px;
+    flex-shrink: 0;
+    background-color: #1e2122;
+    padding: 2rem;
+    overflow-y: auto;
+    border-right: 1px solid #333;
+}
+
+.left-panel header {
+    margin-bottom: 2rem;
+}
+
+.left-panel h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+
+.left-panel p {
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 2rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #fff;
+}
+
+.helper-text {
+    display: block;
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 0.4rem;
+}
+
+/* Inputs & Radio/Checkboxes */
+input[type="number"] {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #2c3032;
+    border: 1px solid #444;
+    border-radius: 6px;
+    color: #fff;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+input[type="number"]:focus {
+    outline: 2px solid #5d9cec;
+    border-color: transparent;
+}
+
+.radio-group,
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.radio-group label,
+.checkbox-group label {
+    font-size: 0.9rem;
+    color: #ccc;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 400;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    accent-color: #5d9cec;
+    transform: scale(1.1);
+}
+
+/* Generate Button */
+#generate-btn {
+    width: 100%;
+    padding: 1rem;
+    background-color: #5d9cec;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 1rem;
+}
+
+#generate-btn:hover {
+    background-color: #4a8cdb;
+}
+
+/* Right Panel: Output Content */
+.right-panel {
+    flex-grow: 1;
+    padding: 3rem;
+    overflow-y: auto;
+    background-color: #24282a;
+}
+
+/* ============================================================
+   PART 3: SECTION SPACING — each section feels like its own moment
+   ============================================================ */
+.output-section {
+    margin-bottom: 4rem;
+    max-width: 800px;
+}
+
+.output-section h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #333;
+    padding-bottom: 0.5rem;
+}
+
+.output-section p {
+    font-size: 1rem;
+    color: #ddd;
+    margin-bottom: 1rem;
+}
+
+/* ============================================================
+   PART 4: NUMBER EMPHASIS — personalized data catches the eye
+   ============================================================ */
+[class^="var-"],
+[class*=" var-"] {
+    font-weight: 600;
+    color: #fff;
+}
+
+/* ============================================================
+   BUCKET CARDS — more breathing room
+   ============================================================ */
+.buckets-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.bucket-card {
+    background-color: #2c3032;
+    padding: 1.75rem;
+    border-radius: 8px;
+    border: 1px solid #3a3f42;
+}
+
+.bucket-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.bucket-card p {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    color: #ccc;
+}
+
+.note {
+    font-size: 0.85rem;
+    color: #888;
+    font-style: italic;
+}
+
+/* Visual Explanation — Venn Diagram Image */
+.diagram-image {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+    margin: 1rem 0;
+}
+
+/* ============================================================
+   RULE BOXES — critical numbers stand out
+   ============================================================ */
+.rule-box {
+    background-color: #2c3032;
+    padding: 1.75rem;
+    border-left: 4px solid #5d9cec;
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+}
+
+.rule-label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #aaa;
+    margin-bottom: 0.25rem !important;
+}
+
+.rule-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.5rem !important;
+}
+
+.rule-explanation {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-bottom: 0 !important;
+}
+
+/* Two-Send Limit & Exit Rules */
+.rules-list {
+    margin-left: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #ddd;
+}
+
+.rules-list li {
+    margin-bottom: 0.5rem;
+}
+
+/* ============================================================
+   ALERT BOX — Hard Stop has strong visual presence
+   ============================================================ */
+.alert-box {
+    background-color: #3b2a2a;
+    color: #ffcccc;
+    padding: 1.25rem 1.5rem;
+    border-radius: 6px;
+    border-left: 4px solid #cc4444;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+}
+
+/* Repair-First Styling */
+.section-repair {
+    display: none;
+}
+
+.repair-alert {
+    background-color: #3b2a2a;
+    padding: 2rem;
+    border: 2px solid #cc4444;
+    border-radius: 8px;
+}
+
+.repair-alert h2 {
+    color: #ff6666;
+    border-bottom-color: #cc4444;
+}
+
+.repair-alert p,
+.repair-alert li {
+    color: #ffcccc;
+}
+
+/* Scrollbar Styling for Webkit */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1e2122;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* ============================================================
+   PRE-GENERATION PLACEHOLDER STATE
+   ============================================================ */
+.placeholder-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 0;
+    color: #e0e0e0;
+}
+
+.placeholder-content {
+    max-width: 800px;
+}
+
+.placeholder-content h2 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1rem;
+    margin-top: 2.5rem;
+}
+
+.placeholder-content p {
+    font-size: 1rem;
+    color: #ddd;
+    margin-bottom: 1rem;
+}
+
+/* State Management: Post-Generation Animation */
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.post-generation-active {
+    display: block !important;
+    animation: fadeInSlide 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ============================================================
+   CTA CALLOUT — "pause and consider" moments
+   ============================================================ */
+.cta-callout {
+    background-color: #2a2f33;
+    padding: 2rem;
+    border-left: 4px solid #5d9cec;
+    border-radius: 6px;
+    border: 1px solid #3a3f42;
+    border-left: 4px solid #5d9cec;
+}
+
+.cta-callout p {
+    margin-bottom: 0.75rem;
+}
+
+.cta-link {
+    color: #5d9cec;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 0.5rem;
+    transition: color 0.2s;
+}
+
+.cta-link:hover {
+    text-decoration: underline;
+    color: #7bb5f5;
+}
+
+/* CTA Capstone Card */
+.cta-capstone {
+    background-color: #2c3032;
+    padding: 2rem;
+    border: 1px solid #3a3f42;
+    border-radius: 8px;
+}
+
+.cta-capstone h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+/* Trust Notice Bar — subtle charcoal strip */
+.trust-notice {
+    background-color: #2f3336;
+    border-bottom: 1px solid #3a3f42;
+    padding: 0.75rem 2rem;
+    text-align: center;
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.trust-notice p {
+    font-size: 0.85rem;
+    color: #999;
+    margin: 0;
+}
+
+.trust-notice p+p {
+    margin-top: 0.25rem;
+    font-size: 0.8rem;
+}
+
+.trust-notice strong {
+    color: #bbb;
+}
+
+/* Conditional block visibility */
+.conditional-block {
+    display: none;
+}
+
+.conditional-block.active {
+    display: block;
+}
+
+/* Impact examples in pre-gen content */
+.impact-examples {
+    margin: 1.5rem 0;
+    padding-left: 1rem;
+    border-left: 3px solid #5d9cec;
+}
+
+.impact-examples p {
+    margin-bottom: 0.75rem;
+}
+
+/* Pre-button explanatory text */
+.pre-button-text {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 0.75rem;
+}
+
+/* ============================================================
+   FORWARD HOOKS — transitions, not content (PART 3)
+   ============================================================ */
+.forward-hook {
+    margin-top: 2rem;
+    font-style: italic;
+    color: rgba(221, 221, 221, 0.6);
+    font-size: 0.93rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Closing line in pre-gen content */
+.closing-line {
+    margin-top: 1.5rem;
+}
+
+/* ============================================================
+   DIAGRAM COMPARISON VISUAL — PARTS 1 & 2
+   ============================================================ */
+
+/* Shared color tokens */
+:root {
+    --circle-green: #3ecf8e;
+    --circle-green-bg: rgba(62, 207, 142, 0.15);
+    --circle-gray: #6b7280;
+    --circle-gray-bg: rgba(107, 114, 128, 0.15);
+    --circle-dark: #374151;
+    --circle-dark-bg: rgba(55, 65, 81, 0.25);
+    --phantom-glow: rgba(93, 156, 236, 0.35);
+}
+
+.diagram-comparison {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+}
+
+.diagram-panel {
+    flex: 1;
+    background-color: #1e2224;
+    border-radius: 12px;
+    padding: 1.75rem 1.25rem;
+    border: 1px solid #333;
+    text-align: center;
+}
+
+.diagram-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 1.5rem;
+}
+
+.circles-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+/* Base circle */
+.circle {
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.circle:hover {
+    transform: scale(1.05);
+}
+
+.circle-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    padding: 0 0.25rem;
+}
+
+.circle-number {
+    font-size: 1.1rem;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 0.15rem;
+}
+
+/* --- Circle variants --- */
+
+/* ENGAGED / CONFIRMED — green (the "good" bucket) */
+.circle-engaged {
+    width: 130px;
+    height: 130px;
+    background: var(--circle-green-bg);
+    border: 2px solid var(--circle-green);
+    color: var(--circle-green);
+}
+
+/* CONFIRMED SMALL — same green, visually smaller (green shrunk) */
+.circle-confirmed-small {
+    width: 95px;
+    height: 95px;
+    background: var(--circle-green-bg);
+    border: 2px solid var(--circle-green);
+    color: var(--circle-green);
+}
+
+/* PHANTOM — gray intruder with accent glow */
+.circle-phantom {
+    width: 110px;
+    height: 110px;
+    background: var(--circle-gray-bg);
+    border: 2px solid var(--circle-gray);
+    color: var(--circle-gray);
+    box-shadow: 0 0 18px var(--phantom-glow), 0 0 40px rgba(93, 156, 236, 0.12);
+}
+
+/* UNENGAGED — dark dead zone */
+.circle-unengaged-dark {
+    width: 90px;
+    height: 90px;
+    background: var(--circle-dark-bg);
+    border: 2px solid var(--circle-dark);
+    color: #9ca3af;
+}
+
+/* Diagram caption */
+.diagram-caption {
+    font-size: 0.8rem;
+    color: #888;
+    margin: 0;
+    line-height: 1.4;
+    font-style: italic;
+}
+
+/* Reassurance text below pre-gen diagrams */
+.reassurance-text {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #bbb;
+    margin: 2rem 0 2.5rem 0;
+    letter-spacing: 0.01em;
+}
+
+/* ============================================================
+   POST-GEN CENTERED TEXT BLOCK — gut punch + reassurance
+   ============================================================ */
+.postgen-centered-text {
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.postgen-headline {
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.75rem !important;
+}
+
+.postgen-subtext {
+    font-size: 1.05rem;
+    color: #ccc;
+    margin-bottom: 1.5rem !important;
+}
+
+.postgen-reassurance {
+    font-size: 1rem;
+    color: #bbb;
+    margin-bottom: 1.5rem !important;
+}
+
+/* Scroll arrow with gentle bounce */
+.scroll-arrow {
+    color: #5d9cec;
+    animation: gentleBounce 2s ease-in-out infinite;
+}
+
+.scroll-arrow svg {
+    width: 28px;
+    height: 28px;
+}
+
+@keyframes gentleBounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(6px);
+    }
+}
+
+/* ============================================================
+   MOBILE RESPONSIVE — PART 5
+   ============================================================ */
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    body {
+        overflow: auto;
+    }
+
+    .left-panel {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #333;
+    }
+
+    .right-panel {
+        padding: 2rem;
+    }
+
+    .diagram-comparison {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .buckets-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .output-section {
+        margin-bottom: 3rem;
+    }
+
+    .circle-engaged {
+        width: 110px;
+        height: 110px;
+    }
+
+    .circle-confirmed-small {
+        width: 80px;
+        height: 80px;
+    }
+
+    .circle-phantom {
+        width: 95px;
+        height: 95px;
+    }
+
+    .circle-unengaged-dark {
+        width: 75px;
+        height: 75px;
+    }
+
+    .circle-label {
+        font-size: 0.55rem;
+    }
+
+    .circle-number {
+        font-size: 0.9rem;
+    }
+
+    .venn-container {
+        transform: scale(0.85);
+    }
+
+    .forward-hook-card {
+        padding: 1.25rem;
+    }
+}
+
+/* ============================================================
+   FORWARD HOOK CARD — light "pause and read" transition
+   ============================================================ */
+.forward-hook-card {
+    background-color: transparent;
+    padding: 1.5rem 1.75rem;
+    border-radius: 6px;
+    margin-top: 2rem;
+    border: 1px solid rgba(62, 207, 142, 0.5);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), 0 1px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.forward-hook-card::after {
+    content: '↓';
+    position: absolute;
+    bottom: 0.6rem;
+    right: 0.9rem;
+    font-size: 1.1rem;
+    color: rgba(62, 207, 142, 0.7);
+    font-weight: 700;
+}
+
+.forward-hook-card p {
+    font-size: 1rem;
+    color: #ddd;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* ============================================================
+   OVERLAPPING VENN DIAGRAM — post-gen "What's Real" (Change 16)
+   ============================================================ */
+.venn-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px;
+    margin-bottom: 1.25rem;
+    padding: 0 0.5rem;
+}
+
+.venn-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.venn-left {
+    background: rgba(62, 207, 142, 0.18);
+    border: 2px solid var(--circle-green);
+    color: var(--circle-green);
+    margin-right: -20px;
+}
+
+.venn-right {
+    background: rgba(55, 65, 81, 0.3);
+    border: 2px solid var(--circle-dark);
+    color: #9ca3af;
+    margin-left: -20px;
+}
+
+.venn-overlap {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    background: #4b5563;
+    border: 2px solid var(--circle-gray);
+    color: #d1d5db;
+    box-shadow: 0 0 18px var(--phantom-glow), 0 0 40px rgba(93, 156, 236, 0.12);
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+.venn-circle .circle-label,
+.venn-overlap .circle-label {
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    padding: 0 0.15rem;
+}
+
+.venn-circle .circle-number,
+.venn-overlap .circle-number {
+    font-size: 1.1rem;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 0.1rem;
+}
+
+/* ============================================================
+   FORM VALIDATION ERRORS — red border on incomplete fields
+   ============================================================ */
+.field-error {
+    border: 2px solid #cc4444 !important;
+    border-radius: 6px;
+    padding: 0.75rem;
+    transition: border-color 0.3s ease;
+}
+
+.field-error input[type="number"] {
+    border-color: #cc4444;
+}
+
+/* ============================================================
+   PRE-GEN CTA CALLOUT — arrow pointing left toward form
+   ============================================================ */
+.pregen-cta-callout {
+    background-color: #2a2f33;
+    padding: 1.5rem 1.75rem 1.5rem 3.5rem;
+    border-radius: 8px;
+    border: 1px solid #3a3f42;
+    margin-top: 2rem;
+    position: relative;
+}
+
+.pregen-cta-callout p {
+    margin: 0;
+    font-size: 1rem;
+    color: #ddd;
+    line-height: 1.5;
+}
+
+.pregen-cta-arrow {
+    position: absolute;
+    left: 1.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.4rem;
+    color: #5d9cec;
+    font-weight: 700;
+}
