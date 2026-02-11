@@ -410,8 +410,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (!response.ok) throw new Error('Submission failed');
 
-                // Show success state and open checklist
+                // Show success state layout (remove title/description, show success msg)
                 optinForm.style.display = 'none';
+                const mTitle = modal.querySelector('.modal-title');
+                const mDesc = modal.querySelector('.modal-description');
+                if (mTitle) mTitle.style.display = 'none';
+                if (mDesc) mDesc.style.display = 'none';
+
                 modalSuccess.style.display = 'block';
 
                 // Open checklist in new tab
