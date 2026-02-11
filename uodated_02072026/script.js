@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Existing Dynamic Text Elements
     const bucketBWindow = document.getElementById('bucket-b-window');
-    const freqDisplay = document.getElementById('freq-display');
     const bucketBDaysRepeat = document.getElementById('bucket-b-days-repeat');
     const reengageVol = document.getElementById('reengage-vol');
     const repairSection = document.getElementById('section-repair');
@@ -133,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         let repairReasons = [];
-        if (appState.inputs.health === 'declined' || appState.inputs.health === 'unsure') {
+        if (appState.inputs.health === 'declined') {
             repairReasons.push("declining deliverability health");
         }
         if (appState.inputs.attempts === 'recent-30' || appState.inputs.attempts === 'recent-90') {
@@ -211,6 +210,9 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         renderUI();
+
+        // Scroll left panel back to top
+        document.querySelector('.left-panel').scrollTop = 0;
     }
 
     function validateInputs() {
@@ -310,7 +312,31 @@ document.addEventListener('DOMContentLoaded', () => {
             // --- Existing Bucket B renders ---
             bucketBWindow.textContent = `${plan.bucketBDays} Days`;
             bucketBDaysRepeat.textContent = plan.bucketBDays;
-            freqDisplay.textContent = plan.bucketBFreqText;
+
+            // --- Dynamic good-news paragraph (Change 3) ---
+            const goodNewsP1 = document.getElementById('block3-good-news-p1');
+            if (goodNewsP1 && !plan.opensOnly) {
+                const verifiableSignals = [];
+                if (appState.inputs.signals.clicks) verifiableSignals.push('clicks');
+                if (appState.inputs.signals.replies) verifiableSignals.push('replies');
+                if (appState.inputs.signals.purchases) verifiableSignals.push('purchases');
+
+                let signalPhrase = '';
+                if (verifiableSignals.length === 1) {
+                    signalPhrase = verifiableSignals[0];
+                } else if (verifiableSignals.length === 2) {
+                    signalPhrase = verifiableSignals.join(' and ');
+                } else {
+                    signalPhrase = verifiableSignals.slice(0, -1).join(', ') + ', and ' + verifiableSignals[verifiableSignals.length - 1];
+                }
+
+                const proofParts = [];
+                if (appState.inputs.signals.clicks) proofParts.push('A click is a click.');
+                if (appState.inputs.signals.replies) proofParts.push('A reply is a reply.');
+                if (appState.inputs.signals.purchases) proofParts.push('A purchase is a purchase.');
+
+                goodNewsP1.textContent = `The good news for your situation. Because you're tracking ${signalPhrase}, you have engagement signals that cannot be faked by a privacy proxy. ${proofParts.join(' ')} That's your Bucket A, confirmed engaged.`;
+            }
 
             // --- Existing Bucket C renders ---
             reengageVol.textContent = `${plan.waveSize.toLocaleString()} subscribers`;
@@ -335,4 +361,65 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 5. INITIALIZATION ---
     generateBtn.addEventListener('click', handleGenerate);
     renderUI();
+
+    // --- 6. SAFETY CHECKLIST MODAL ---
+    const modal = document.getElementById('checklist-modal');
+    const optinForm = document.getElementById('checklist-optin-form');
+    const modalSubmitBtn = document.getElementById('modal-submit-btn');
+    const modalSuccess = document.getElementById('modal-success');
+    const modalError = document.getElementById('modal-error');
+
+    // Close on overlay click
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+    }
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
+            modal.classList.remove('active');
+        }
+    });
+
+    // Form submission to ActiveCampaign
+    if (optinForm) {
+        optinForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const firstName = document.getElementById('optin-name').value.trim();
+            const email = document.getElementById('optin-email').value.trim();
+
+            if (!firstName || !email) return;
+
+            // Disable button and show loading state
+            modalSubmitBtn.disabled = true;
+            modalSubmitBtn.textContent = 'Sending…';
+            modalError.style.display = 'none';
+
+            // ActiveCampaign API via server-side proxy
+            try {
+                const response = await fetch('/api/activecampaign/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ firstName, email })
+                });
+
+                if (!response.ok) throw new Error('Submission failed');
+
+                // Show success state
+                optinForm.style.display = 'none';
+                modalSuccess.style.display = 'block';
+
+            } catch (err) {
+                console.error('ActiveCampaign error:', err);
+                modalError.style.display = 'block';
+                modalSubmitBtn.disabled = false;
+                modalSubmitBtn.textContent = 'Send Me the Checklist';
+            }
+        });
+    }
 });

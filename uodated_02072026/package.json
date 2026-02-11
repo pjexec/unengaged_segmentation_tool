@@ -1,0 +1,13 @@
+{
+  "name": "reengage-segmentation-tool",
+  "version": "1.0.0",
+  "description": "Re-Engagement Planning Tool with Phantom Engagement Framework",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

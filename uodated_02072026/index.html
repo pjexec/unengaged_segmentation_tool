@@ -13,9 +13,7 @@
     <!-- Trust Notice -->
     <div class="trust-notice">
         <p><strong>Not AI-generated.</strong> This report is assembled from vetted deliverability logic to avoid
-            hallucinations and incorrect assumptions. It's meticulously built by a deliverability expert.</p>
-        <p><strong>The plan this tool generates is specific to your list, your sending patterns, and your available
-                data, and it gives you a step-by-step path that didn't exist before.</strong></p>
+            AI hallucinations and incorrect assumptions. It's meticulously built by a deliverability expert.</p>
     </div>
 
     <div class="container">
@@ -142,7 +140,18 @@
                         </div>
                     </div>
 
-                    <p class="reassurance-text">But don't worry, we have answers.</p>
+                    <div class="postgen-centered-text">
+                        <p class="postgen-headline">1 blind spot that creates 2 problems.</p>
+                        <p class="postgen-subtext">You're treating bots as fans. And some of your biggest fans as dead
+                            weight.</p>
+                        <p class="postgen-reassurance">Don't worry. We have answers.</p>
+                        <div class="scroll-arrow" aria-hidden="true">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                    </div>
 
                     <!-- Existing content now below the visual -->
                     <h2>Your ESP is lying to you about engagement. This tool shows you how.</h2>
@@ -193,7 +202,7 @@
                 <div class="output-section section-postgen-visual">
                     <div class="diagram-comparison">
                         <div class="diagram-panel">
-                            <h3 class="diagram-title">What You Entered</h3>
+                            <h3 class="diagram-title">The Visible</h3>
                             <div class="circles-row circles-row-two">
                                 <div class="circle circle-engaged">
                                     <span class="circle-number var-remaining-count"></span>
@@ -204,16 +213,16 @@
                                     <span class="circle-label">Unengaged</span>
                                 </div>
                             </div>
-                            <p class="diagram-caption">What you're making crucial decisions on</p>
+                            <p class="diagram-caption">What you can measure</p>
                         </div>
                         <div class="diagram-panel">
-                            <h3 class="diagram-title">What's Real</h3>
+                            <h3 class="diagram-title">The Invisible</h3>
                             <div class="venn-container">
                                 <div class="venn-circle venn-left">
                                     <span class="circle-number">?</span>
                                     <span class="circle-label">Confirmed Engaged</span>
                                 </div>
-                                <div class="venn-overlap">
+                                <div class="venn-phantom">
                                     <span class="circle-number">?</span>
                                     <span class="circle-label">Phantom Engaged</span>
                                 </div>
@@ -222,12 +231,12 @@
                                     <span class="circle-label">Unengaged</span>
                                 </div>
                             </div>
-                            <p class="diagram-caption">What's actually happening</p>
+                            <p class="diagram-caption">The blind spot</p>
                         </div>
                     </div>
 
                     <div class="postgen-centered-text">
-                        <p class="postgen-headline">One blind spot. Two problems.</p>
+                        <p class="postgen-headline">1 blind spot that creates 2 problems.</p>
                         <p class="postgen-subtext">You're treating bots as fans. And some of your biggest fans as dead
                             weight.</p>
                         <p class="postgen-reassurance">Don't worry. We have answers.</p>
@@ -336,7 +345,9 @@
                         surfaced in this report: authentication gaps, reputation monitoring, list hygiene protocols,
                         and the specific sending practices that protect your inbox placement while you sort this out.
                         It's free.</p>
-                    <a href="#" class="cta-link">Get the Safety Checklist →</a>
+                    <a href="#" class="cta-link" id="safety-checklist-cta"
+                        onclick="event.preventDefault(); document.getElementById('checklist-modal').classList.add('active');">Get
+                        the Safety Checklist →</a>
                 </div>
 
                 <!-- SECTION 1: Framing -->
@@ -355,22 +366,25 @@
                 <!-- BLOCK 2: Emotional Hook -->
                 <div class="output-section section-emotional-hook-buckets">
                     <p>
-                        <strong>Why this matters for your list:</strong> The instinct is to treat your <span
-                            class="var-list-size"></span> subscribers as two groups. <span
-                            class="var-remaining-count"></span> engaged and <span class="var-unengaged-count"></span>
-                        not. Both your ESP and your gut reinforce that view. But it's wrong.
+                        <strong>Why this matters for your list:</strong> The instinct is to treat your list as 2 groups,
+                        engaged and unengaged. Both your ESP and your gut reinforce that view. But it's wrong.
                     </p>
                     <p>
                         You entered <span class="var-list-size"></span> total and <span
                             class="var-unengaged-count"></span> unengaged, which means you're treating the remaining
-                        <span class="var-remaining-count"></span> as engaged. But a significant portion of that group
-                        is 100% phantom engaged: subscribers whose &ldquo;opens&rdquo; are generated by privacy proxies,
-                        not human behavior. The actual number of confirmed engaged subscribers on your list is likely
+                        <span class="var-remaining-count"></span> as engaged. <strong>But a significant portion of that
+                            group
+                            is 100% Phantom Engaged:</strong> subscribers whose &ldquo;opens&rdquo; are generated by
+                        privacy proxies,
+                        not human behavior.
+                    </p>
+                    <p>
+                        The actual number of confirmed engaged subscribers on your list is likely
                         lower than <span class="var-remaining-count"></span>, and you won't know by how much until you
                         apply the observation window below.
                     </p>
                     <p>
-                        The framework below splits your list into three buckets, not two, The middle bucket, Phantom
+                        This framework splits your list into 3 buckets, not 2. The middle bucket, Phantom
                         Engaged, is the one most email marketers have never considered. It's also the one that
                         determines whether your re-engagement effort helps or hurts. Here, let me show you what I mean:
                     </p>
@@ -380,21 +394,30 @@
                 <div class="output-section section-buckets">
                     <h2>The 3 Subscriber Buckets</h2>
                     <div class="buckets-grid">
-                        <div class="bucket-card">
-                            <h3>Bucket A: Confirmed Engaged</h3>
-                            <p>Subscribers showing verified <strong>human intent</strong> such as clicks, replies, or
-                                purchases. Opens are optional, but Bucket A requires undeniable human interaction.</p>
+                        <div class="bucket-item">
+                            <h3 class="bucket-title">Bucket A: Confirmed Engaged</h3>
+                            <div class="bucket-card">
+                                <p>Subscribers showing verified <strong>human intent</strong> such as clicks, replies,
+                                    or
+                                    purchases. Opens are optional, but Bucket A requires undeniable human interaction.
+                                </p>
+                            </div>
                         </div>
-                        <div class="bucket-card">
-                            <h3>Bucket B: Phantom Engaged</h3>
-                            <p>Subscribers showing opens without other human intent. These signals may be human or
-                                automated. This bucket represents uncertainty, not behavior.</p>
+                        <div class="bucket-item">
+                            <h3 class="bucket-title">Bucket B: Phantom Engaged</h3>
+                            <div class="bucket-card">
+                                <p>Subscribers showing opens without other human intent. These signals may be human or
+                                    automated. This bucket represents uncertainty, not behavior.</p>
+                            </div>
                         </div>
-                        <div class="bucket-card">
-                            <h3>Bucket C: Unengaged</h3>
-                            <p>Subscribers showing no engagement signals whatsoever, not even opens, within a defined
-                                observation window.
-                                These subscribers require controlled, finite re-engagement.</p>
+                        <div class="bucket-item">
+                            <h3 class="bucket-title">Bucket C: Unengaged</h3>
+                            <div class="bucket-card">
+                                <p>Subscribers showing no engagement signals whatsoever, not even opens, within a
+                                    defined
+                                    observation window.
+                                    These subscribers require controlled, finite re-engagement.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -428,14 +451,10 @@
                             you a defensible classification.</p>
                     </div>
                     <div id="block3-has-signals" class="conditional-block">
-                        <p>The good news for your situation. Because you're tracking <span
-                                class="var-signal-list"></span>, you have engagement signals that cannot be faked by a
-                            privacy proxy. A click is a click. A purchase is a purchase. That means your Bucket A,
-                            confirmed engaged, is more reliable than it would be for someone relying on open rates
-                            alone.</p>
+                        <p id="block3-good-news-p1"></p>
                         <p>But that doesn't eliminate Bucket B. Among the <span class="var-remaining-count"></span>
                             subscribers you're treating as engaged, there are still those who show opens but have never
-                            clicked, replied, or purchased. Those subscribers are phantom engaged until proven
+                            produced a verifiable signal. Those subscribers are phantom engaged until proven
                             otherwise. The <span class="var-obs-window"></span>-day observation window below is how you
                             make that determination.</p>
                     </div>
@@ -452,9 +471,9 @@
                     <div class="rule-box">
                         <p class="rule-label">Your Observation Window:</p>
                         <p class="rule-value" id="bucket-b-window">-- Days</p>
+                        <hr class="rule-divider">
+                        <p class="rule-reference-label">Reference:</p>
                         <p class="rule-explanation">
-                            <span id="freq-display">--</span>.
-                            <br>
                             Daily sending: classify after 45 days.
                             <br>
                             Weekly sending: classify after 60 days.
@@ -551,7 +570,7 @@
                         <p>The 30 to 60 Day Re-Engagement Sprint handles all of it: three-bucket segmentation, phantom
                             engagement classification, send pacing, exit rules, monitoring, and suppression. Done by
                             hand by the same deliverability expert who created this tool.</p>
-                        <a href="#" class="cta-link">Learn About the Sprint →</a>
+                        <a href="https://dfy.reengage.pro/" class="cta-link">Learn About the Sprint →</a>
                     </div>
                     <div id="cta2-small-list" class="conditional-block">
                         <p><strong>If your team doesn't have bandwidth for this:</strong> The framework above is
@@ -561,7 +580,7 @@
                                 class="var-obs-window"></span>-day observation window, enforcing daily caps and hard
                             stops. The 30 to 60 Day Re-Engagement Sprint handles the full implementation. Done by hand
                             by the same deliverability expert who created this tool.</p>
-                        <a href="#" class="cta-link">Learn About the Sprint →</a>
+                        <a href="https://dfy.reengage.pro/" class="cta-link">Learn About the Sprint →</a>
                     </div>
                 </div>
 
@@ -596,12 +615,45 @@
                         evolves.</p>
                     <p>It's not available yet. But when it launches, the businesses on the waitlist get first access and
                         early pricing.</p>
-                    <a href="#" class="cta-link">Join the ReEngage Pro Waitlist →</a>
+                    <a href="https://reengage.pro" class="cta-link">Join the ReEngage Pro Waitlist →</a>
                 </div>
 
             </div> <!-- End Post-Generation Content -->
         </div>
     </div>
+    <!-- Safety Checklist Opt-In Modal -->
+    <div id="checklist-modal" class="modal-overlay">
+        <div class="modal-container">
+            <button class="modal-close" onclick="document.getElementById('checklist-modal').classList.remove('active');"
+                aria-label="Close">&times;</button>
+            <h2 class="modal-title">Get the Deliverability Safety Checklist</h2>
+            <p class="modal-description">Without a structured safety process, re-engagement campaigns routinely trigger
+                spam traps, spike complaint rates above ISP thresholds, and permanently damage sender reputation. The
+                result: your emails to engaged subscribers start landing in spam too. This checklist exists to prevent
+                that outcome. Every unchecked item below is a specific way your campaign can fail.</p>
+            <form id="checklist-optin-form" class="modal-form">
+                <div class="modal-field">
+                    <label for="optin-name">First Name</label>
+                    <input type="text" id="optin-name" name="first_name" placeholder="Your first name" required>
+                </div>
+                <div class="modal-field">
+                    <label for="optin-email">Email Address</label>
+                    <input type="email" id="optin-email" name="email" placeholder="you@company.com" required>
+                </div>
+                <button type="submit" class="modal-submit" id="modal-submit-btn">Send Me the Checklist</button>
+                <p class="modal-privacy">No spam. Unsubscribe anytime.</p>
+            </form>
+            <div id="modal-success" class="modal-success" style="display:none;">
+                <div class="modal-success-icon">✓</div>
+                <h3>You're in.</h3>
+                <p>Check your inbox for the Deliverability Safety Checklist.</p>
+            </div>
+            <div id="modal-error" class="modal-error" style="display:none;">
+                <p>Something went wrong. Please try again or contact us directly.</p>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 
