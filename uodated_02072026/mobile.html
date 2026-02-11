@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Re-Engagement Planner Mobile</title>
+    <link rel="stylesheet" href="mobile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Trust Notice -->
+    <div class="trust-notice">
+        <p><strong>Not AI-generated.</strong> Expert deliverability logic.</p>
+    </div>
+
+    <div class="mobile-container">
+
+        <!-- STEP 1: Basic Inputs -->
+        <div id="step-1" class="step active">
+            <header>
+                <h1>Re-Engagement Planner</h1>
+                <p>Let's configure your environment.</p>
+            </header>
+
+            <form id="mobile-form-1">
+                <div class="form-group">
+                    <label>1. Sending Frequency</label>
+                    <div class="radio-card-group">
+                        <label class="radio-card">
+                            <input type="radio" name="frequency" value="daily" required>
+                            <span>Daily</span>
+                        </label>
+                        <label class="radio-card">
+                            <input type="radio" name="frequency" value="weekly">
+                            <span>Weekly</span>
+                        </label>
+                        <label class="radio-card">
+                            <input type="radio" name="frequency" value="monthly">
+                            <span>Monthly+</span>
+                        </label>
+                        <label class="radio-card">
+                            <input type="radio" name="frequency" value="irregular">
+                            <span>Irregular</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="list-size">2. Total List Size</label>
+                    <input type="number" id="list-size" name="list-size" placeholder="e.g. 50000" min="0" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="unengaged-size">3. Est. Unengaged Subscribers</label>
+                    <input type="number" id="unengaged-size" name="unengaged-size" placeholder="e.g. 15000" min="0"
+                        required>
+                </div>
+
+                <button type="button" class="btn-primary" onclick="goToStep(2)">Next Step →</button>
+            </form>
+        </div>
+
+        <!-- STEP 2: Advanced Inputs -->
+        <div id="step-2" class="step">
+            <header>
+                <button type="button" class="btn-back" onclick="goToStep(1)">← Back</button>
+                <h1>Deep Dive</h1>
+                <p>Refining the details.</p>
+            </header>
+
+            <form id="mobile-form-2">
+                <div class="form-group">
+                    <label>4. Signals Available</label>
+                    <div class="checkbox-card-group">
+                        <label class="checkbox-card">
+                            <input type="checkbox" name="signals" value="opens">
+                            <span>Opens</span>
+                        </label>
+                        <label class="checkbox-card">
+                            <input type="checkbox" name="signals" value="clicks">
+                            <span>Clicks</span>
+                        </label>
+                        <label class="checkbox-card">
+                            <input type="checkbox" name="signals" value="replies">
+                            <span>Replies</span>
+                        </label>
+                        <label class="checkbox-card">
+                            <input type="checkbox" name="signals" value="purchases">
+                            <span>Purchases</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>5. Health Status</label>
+                    <select name="health" required>
+                        <option value="" disabled selected>Select status...</option>
+                        <option value="healthy">Healthy and stable</option>
+                        <option value="mostly-fine">Mostly fine</option>
+                        <option value="declined">Recently declined</option>
+                        <option value="unsure">Unsure</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>6. Recent Attempts?</label>
+                    <select name="attempts" required>
+                        <option value="" disabled selected>Select history...</option>
+                        <option value="recent-30">Yes, last 30 days</option>
+                        <option value="recent-90">Yes, last 90 days</option>
+                        <option value="long-ago">Yes, longer ago</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+
+                <button type="button" class="btn-primary" id="mobile-generate-btn">Generate Plan</button>
+            </form>
+        </div>
+
+        <!-- STEP 3: Results -->
+        <div id="step-3" class="step">
+            <header>
+                <button type="button" class="btn-back" onclick="goToStep(2)">← Edit Inputs</button>
+                <h1>Your Plan</h1>
+            </header>
+
+            <!-- Visual Comparison -->
+            <div class="mobile-card visual-card">
+                <h3>The Reality</h3>
+                <div class="venn-mobile">
+                    <div class="venn-circle venn-left">
+                        <span class="circle-number">?</span>
+                        <span class="circle-label">Confirmed</span>
+                    </div>
+                    <div class="venn-phantom">
+                        <span class="circle-number">?</span>
+                        <span class="circle-label">Phantom</span>
+                    </div>
+                    <div class="venn-circle venn-right">
+                        <span class="circle-number var-unengaged-count"></span>
+                        <span class="circle-label">Unengaged</span>
+                    </div>
+                </div>
+                <p class="caption">The "Invisible Middle" is where campaigns fail.</p>
+            </div>
+
+            <!-- Snapshot -->
+            <div class="mobile-section">
+                <h2>Snapshot</h2>
+                <p>You have <span class="var-unengaged-count"></span> unengaged subscribers (<span
+                        class="var-unengaged-pct"></span>% of list). But some of your "engaged" subscribers are actually
+                    bots (Phantom Engaged).</p>
+            </div>
+
+            <!-- Bucket B Rules -->
+            <div class="mobile-card rule-card">
+                <h3>Bucket B: Phantom Engaged</h3>
+                <div class="rule-content">
+                    <span class="rule-label">Observation Window</span>
+                    <span class="rule-value" id="bucket-b-window">-- Days</span>
+                    <p class="rule-desc">Continue sending. If no real clicks/replies appear by Day <span
+                            id="bucket-b-days-repeat">--</span>, move to Bucket C.</p>
+                </div>
+            </div>
+
+            <!-- Bucket C Rules -->
+            <div class="mobile-card rule-card">
+                <h3>Bucket C: Re-Engagement</h3>
+                <div class="rule-content">
+                    <span class="rule-label">Max Daily Volume</span>
+                    <span class="rule-value" id="reengage-vol">-- / Day</span>
+                    <p class="rule-desc">Cap at 5% of unengaged. <strong>Two emails max.</strong> If no response,
+                        permanent suppression.</p>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="mobile-cta-section">
+                <h2>Get the Checklist</h2>
+                <p>Don't risk your domain reputation. Get the full safety protocol.</p>
+                <button class="btn-cta" onclick="openModal()">Get Safety Checklist</button>
+                <div style="margin-top: 15px; text-align: center;">
+                    <a href="https://dfy.reengage.pro/" target="_blank" style="color: #5d9cec; font-size: 0.9rem;">Or
+                        view the Done-For-You Sprint</a>
+                </div>
+            </div>
+
+            <!-- Repair Logic (Hidden by default) -->
+            <div id="mobile-repair-section" class="mobile-repair-alert" style="display: none;">
+                <h3>⚠️ Caution</h3>
+                <p>Stabilize first due to <span id="repair-reason">--</span>.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Modal -->
+    <div id="mobile-modal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h3>Safety Checklist</h3>
+            <p>The full 30-point protocol for safe re-engagement.</p>
+            <form id="mobile-optin-form">
+                <input type="text" id="mobile-optin-name" placeholder="First Name" required>
+                <input type="email" id="mobile-optin-email" placeholder="Email Address" required>
+                <button type="submit" class="btn-primary" id="mobile-modal-submit">Send to Me</button>
+            </form>
+            <div id="mobile-modal-success" style="display:none; text-align: center;">
+                <p>✓ Sent! Opening now...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="mobile.js"></script>
+</body>
+
+</html>
