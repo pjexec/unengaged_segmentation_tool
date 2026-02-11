@@ -413,7 +413,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Show success state and open checklist
                 optinForm.style.display = 'none';
                 modalSuccess.style.display = 'block';
-                modalSuccess.querySelector('p').textContent = 'Opening the checklist in a new tab...';
 
                 // Open checklist in new tab
                 window.open('/reengage-safety-checklist-v2.html', '_blank');
