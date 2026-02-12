@@ -689,7 +689,11 @@ input[type="checkbox"] {
 
 /* ============================================================
    MOBILE RESPONSIVE — PART 5
+   Progressive breakpoints: 900px → 640px → 390px
+   All desktop styles are untouched; these only fire on small screens.
    ============================================================ */
+
+/* ---- BREAKPOINT 1: Tablet / small laptop ≤ 900px ---- */
 @media (max-width: 900px) {
     .container {
         flex-direction: column;
@@ -709,7 +713,7 @@ input[type="checkbox"] {
     }
 
     .right-panel {
-        padding: 2rem;
+        padding: 1.5rem 1.5rem 2rem;
     }
 
     .diagram-comparison {
@@ -723,6 +727,7 @@ input[type="checkbox"] {
 
     .output-section {
         margin-bottom: 3rem;
+        max-width: 100%;
     }
 
     .circle-engaged {
@@ -759,6 +764,395 @@ input[type="checkbox"] {
 
     .forward-hook-card {
         padding: 1.25rem;
+    }
+
+    /* Arrow points down instead of left when panels are stacked */
+    .pregen-cta-arrow {
+        display: none;
+    }
+
+    .pregen-cta-callout {
+        padding-left: 1.75rem;
+        text-align: center;
+    }
+}
+
+/* ---- BREAKPOINT 2: Mobile phones ≤ 640px ---- */
+@media (max-width: 640px) {
+
+    /* --- Layout & Panels --- */
+    .left-panel {
+        padding: 1.25rem;
+    }
+
+    .right-panel {
+        padding: 1rem 1rem 2rem;
+    }
+
+    /* --- Trust Notice Bar --- */
+    .trust-notice {
+        padding: 0.35rem 1rem;
+    }
+
+    .trust-notice p {
+        font-size: 0.7rem;
+        line-height: 1.4;
+    }
+
+    /* --- Left Panel Typography --- */
+    .left-panel h1 {
+        font-size: 1.3rem;
+    }
+
+    .left-panel header p {
+        font-size: 0.8rem;
+    }
+
+    label {
+        font-size: 0.85rem;
+    }
+
+    .helper-text {
+        font-size: 0.75rem;
+    }
+
+    .radio-group label,
+    .checkbox-group label {
+        font-size: 0.82rem;
+    }
+
+    #generate-btn {
+        padding: 0.85rem;
+        font-size: 0.95rem;
+    }
+
+    /* --- Right Panel Typography --- */
+    .output-section h2 {
+        font-size: 1.1rem;
+    }
+
+    .output-section p {
+        font-size: 0.9rem;
+    }
+
+    .placeholder-content h2 {
+        font-size: 1.15rem;
+        margin-top: 1.5rem;
+    }
+
+    .placeholder-content p {
+        font-size: 0.9rem;
+    }
+
+    .postgen-headline {
+        font-size: 1.15rem;
+    }
+
+    .postgen-subtext {
+        font-size: 0.92rem;
+    }
+
+    .postgen-reassurance {
+        font-size: 0.9rem;
+    }
+
+    /* --- Diagram Circles --- */
+    .circle-engaged {
+        width: 90px;
+        height: 90px;
+    }
+
+    .circle-confirmed-small {
+        width: 70px;
+        height: 70px;
+    }
+
+    .circle-phantom {
+        width: 80px;
+        height: 80px;
+    }
+
+    .circle-unengaged-dark {
+        width: 65px;
+        height: 65px;
+    }
+
+    .circle-label {
+        font-size: 0.5rem;
+    }
+
+    .circle-number {
+        font-size: 0.8rem;
+    }
+
+    /* --- Diagram Panel Cards --- */
+    .diagram-panel {
+        padding: 1.25rem 0.75rem;
+    }
+
+    .diagram-title {
+        font-size: 0.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .diagram-caption {
+        font-size: 0.72rem;
+    }
+
+    /* --- Venn Diagram (post-gen) --- */
+    .venn-container {
+        transform: scale(0.75);
+        transform-origin: center center;
+    }
+
+    /* --- Rule Boxes --- */
+    .rule-box {
+        padding: 1.25rem;
+    }
+
+    .rule-value {
+        font-size: 1.5rem;
+    }
+
+    .rule-label {
+        font-size: 0.78rem;
+    }
+
+    .rule-explanation {
+        font-size: 0.82rem;
+    }
+
+    /* --- CTA & Card Components --- */
+    .cta-callout {
+        padding: 1.25rem;
+    }
+
+    .cta-capstone {
+        padding: 1.25rem;
+    }
+
+    .cta-capstone h3 {
+        font-size: 1rem;
+    }
+
+    .forward-hook-card {
+        padding: 1rem 1.25rem;
+    }
+
+    .forward-hook-card p {
+        font-size: 0.9rem;
+    }
+
+    .forward-hook {
+        font-size: 0.85rem;
+    }
+
+    .cta-link {
+        font-size: 0.92rem;
+    }
+
+    /* --- Bucket Cards --- */
+    .bucket-card {
+        padding: 1.25rem;
+    }
+
+    .bucket-card p {
+        font-size: 0.82rem;
+    }
+
+    .bucket-title {
+        font-size: 0.9rem;
+    }
+
+    /* --- Alert & Repair Boxes --- */
+    .alert-box {
+        font-size: 0.9rem;
+        padding: 1rem 1.25rem;
+    }
+
+    .repair-alert {
+        padding: 1.25rem;
+    }
+
+    /* --- Rules List --- */
+    .rules-list {
+        margin-left: 1.25rem;
+        font-size: 0.9rem;
+    }
+
+    /* --- Pre-gen CTA Callout --- */
+    .pregen-cta-callout {
+        padding: 1.25rem;
+        text-align: center;
+    }
+
+    .pregen-cta-callout p {
+        font-size: 0.9rem;
+    }
+
+    /* --- Impact Examples --- */
+    .impact-examples {
+        padding-left: 0.75rem;
+    }
+
+    .impact-examples p {
+        font-size: 0.88rem;
+    }
+
+    /* --- Scroll Arrow --- */
+    .scroll-arrow svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    /* --- Modal --- */
+    .modal-container {
+        width: 92%;
+        padding: 1.75rem;
+    }
+
+    .modal-title {
+        font-size: 1.15rem;
+        padding-right: 1.5rem;
+    }
+
+    .modal-description {
+        font-size: 0.82rem;
+    }
+
+    .modal-field input {
+        padding: 0.65rem;
+        font-size: 0.9rem;
+    }
+
+    .modal-submit {
+        padding: 0.8rem;
+        font-size: 0.95rem;
+    }
+
+    /* --- Number inputs --- */
+    input[type="number"] {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    /* --- Form groups --- */
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    /* Prevent any horizontal overflow */
+    .placeholder-content,
+    .output-section,
+    .section-postgen-visual {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+}
+
+/* ---- BREAKPOINT 3: Small phones ≤ 390px (iPhone SE, Galaxy S) ---- */
+@media (max-width: 390px) {
+
+    .left-panel {
+        padding: 1rem;
+    }
+
+    .right-panel {
+        padding: 0.75rem 0.75rem 1.5rem;
+    }
+
+    .left-panel h1 {
+        font-size: 1.2rem;
+    }
+
+    .trust-notice p {
+        font-size: 0.65rem;
+    }
+
+    /* Even smaller circles */
+    .circle-engaged {
+        width: 78px;
+        height: 78px;
+    }
+
+    .circle-confirmed-small {
+        width: 62px;
+        height: 62px;
+    }
+
+    .circle-phantom {
+        width: 70px;
+        height: 70px;
+    }
+
+    .circle-unengaged-dark {
+        width: 58px;
+        height: 58px;
+    }
+
+    .circle-label {
+        font-size: 0.45rem;
+    }
+
+    .circle-number {
+        font-size: 0.7rem;
+    }
+
+    /* Venn even smaller */
+    .venn-container {
+        transform: scale(0.65);
+    }
+
+    /* Typography tighten */
+    .postgen-headline {
+        font-size: 1.05rem;
+    }
+
+    .rule-value {
+        font-size: 1.3rem;
+    }
+
+    .placeholder-content h2 {
+        font-size: 1.05rem;
+    }
+
+    .output-section h2 {
+        font-size: 1rem;
+    }
+
+    /* Cards & boxes */
+    .rule-box {
+        padding: 1rem;
+    }
+
+    .cta-callout {
+        padding: 1rem;
+    }
+
+    .cta-capstone {
+        padding: 1rem;
+    }
+
+    .forward-hook-card {
+        padding: 0.75rem 1rem;
+    }
+
+    .bucket-card {
+        padding: 1rem;
+    }
+
+    .diagram-panel {
+        padding: 1rem 0.5rem;
+    }
+
+    /* Modal fills nearly full width */
+    .modal-container {
+        width: 96%;
+        padding: 1.25rem;
+    }
+
+    .modal-title {
+        font-size: 1.05rem;
     }
 }
 
