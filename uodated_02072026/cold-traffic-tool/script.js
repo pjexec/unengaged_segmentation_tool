@@ -166,12 +166,30 @@ document.addEventListener('DOMContentLoaded', () => {
     // Listen for all form interactions to update guided focus
     let numberDebounceTimer = null;
 
-    questionGroups.forEach((group) => {
-        // Radio and checkbox changes — instant
-        group.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => {
+    // Q4 (index 3) is the checkbox group — needs special handling so users
+    // can check multiple boxes before the guided mode advances to Q5.
+    const q4Group = questionGroups[3];
+
+    questionGroups.forEach((group, idx) => {
+        // Radio changes — instant advance
+        group.querySelectorAll('input[type="radio"]').forEach(input => {
             input.addEventListener('change', () => {
                 updateGuidedFocus();
             });
+        });
+
+        // Checkbox changes — Q4 gets deferred advance, others instant
+        group.querySelectorAll('input[type="checkbox"]').forEach(input => {
+            if (idx === 3) {
+                // Q4 only: update classes (completion state) but do NOT scroll
+                input.addEventListener('change', () => {
+                    updateGuidedFocus(false); // update visual state, no scroll
+                });
+            } else {
+                input.addEventListener('change', () => {
+                    updateGuidedFocus();
+                });
+            }
         });
 
         // Number input changes — debounced (wait until user stops typing)
@@ -199,6 +217,16 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
+
+    // Q4 special behavior: advance to Q5 only when mouse leaves the checkbox area
+    if (q4Group) {
+        q4Group.addEventListener('mouseleave', () => {
+            // Only advance if Q4 actually has at least one checkbox checked
+            if (isQuestionComplete(q4Group, 3)) {
+                updateGuidedFocus(true); // now scroll to the next question
+            }
+        });
+    }
 
 
     // ═══════════════════════════════════════════════
