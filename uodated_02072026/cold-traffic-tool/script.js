@@ -124,15 +124,13 @@ document.addEventListener('DOMContentLoaded', () => {
             generateBtn.classList.remove('ready');
             generateCoaching.classList.remove('visible');
 
-            // Smooth scroll to active question (~20% from top)
+            // Smooth scroll to active question (~35% from top)
+            // Delay must exceed CSS transition duration (padding 0.3s + coaching text 0.4s)
+            // so layout is stable before calculating scroll target
             setTimeout(() => {
-                const rect = activeGroup.getBoundingClientRect();
-                const offsetTop = window.pageYOffset + rect.top - (window.innerHeight * 0.2);
-                // For the form panel's internal scroll
-                const panelRect = formPanel.getBoundingClientRect();
                 const scrollTarget = activeGroup.offsetTop - (formPanel.clientHeight * 0.35);
                 formPanel.scrollTo({ top: Math.max(0, scrollTarget), behavior: 'smooth' });
-            }, 50);
+            }, 420);
         } else {
             // All questions complete — activate generate button
             generateBtn.classList.remove('dimmed');
@@ -143,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const scrollTarget = generateBtn.offsetTop - (formPanel.clientHeight * 0.2);
                 formPanel.scrollTo({ top: Math.max(0, scrollTarget), behavior: 'smooth' });
-            }, 50);
+            }, 420);
         }
     }
 
