@@ -73,6 +73,9 @@ app.post('/api/activecampaign/contact', async (req, res) => {
     }
 });
 
+// Serve cold-traffic-tool static files (must come before catch-all)
+app.use('/cold-traffic-tool', express.static(path.join(__dirname, 'cold-traffic-tool')));
+
 // Serve static files
 app.use(express.static(path.join(__dirname)));
 
