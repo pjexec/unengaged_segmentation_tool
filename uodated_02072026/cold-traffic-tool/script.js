@@ -55,19 +55,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const heroSection = document.getElementById('hero');
 
     proveItBtn.addEventListener('click', () => {
-        // Lift the frost — remove blur, restore opacity, enable interaction
-        formPanel.classList.remove('frosted');
-        formPanel.classList.add('revealed');
+        const isMobile = window.innerWidth < 768;
 
-        // On mobile, scroll to the form
-        if (window.innerWidth < 1024) {
-            formPanel.scrollIntoView({ behavior: 'smooth' });
-        }
+        if (isMobile) {
+            // Mobile: show form immediately, no frost animation
+            formPanel.classList.add('mobile-visible');
+            formPanel.classList.remove('frosted');
+            formPanel.classList.add('revealed');
 
-        // Activate guided mode after frost transition completes
-        setTimeout(() => {
+            // Init guided mode immediately — no delay needed
             initGuidedMode();
-        }, 700); // after the 0.6s frost transition completes
+
+            // Auto-scroll to the form
+            setTimeout(() => {
+                formPanel.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        } else {
+            // Desktop/tablet: lift the frost with animation
+            formPanel.classList.remove('frosted');
+            formPanel.classList.add('revealed');
+
+            // Activate guided mode after frost transition completes
+            setTimeout(() => {
+                initGuidedMode();
+            }, 700); // after the 0.6s frost transition completes
+        }
     });
 
     // ═══════════════════════════════════════════════
@@ -500,7 +512,15 @@ document.addEventListener('DOMContentLoaded', () => {
             // User already passed gate (re-generating), reveal immediately
             resultsSection.classList.remove('frosted');
             resultsSection.classList.add('revealed');
-            resultsSection.scrollIntoView({ behavior: 'smooth' });
+
+            if (window.innerWidth < 768) {
+                // Mobile: scroll the page to results
+                setTimeout(() => {
+                    resultsSection.scrollIntoView({ behavior: 'smooth' });
+                }, 200);
+            } else {
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+            }
         }
 
         // Scroll form panel to top
@@ -688,19 +708,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 appState.emailGatePassed = true;
                 hideEmailGate();
 
-                // Hide hero content and thought paper link
-                const heroContent = document.querySelector('.hero-content');
-                const thoughtPaper = document.querySelector('.thought-paper-link');
-                if (heroContent) heroContent.style.display = 'none';
-                if (thoughtPaper) thoughtPaper.style.display = 'none';
+                const isMobile = window.innerWidth < 768;
 
-                // Show results in the same flex position (right side of form panel)
-                resultsSection.style.display = 'block';
-                resultsSection.classList.remove('frosted');
-                resultsSection.classList.add('revealed');
+                if (isMobile) {
+                    // Mobile: keep hero visible, show results below, auto-scroll
+                    resultsSection.style.display = 'block';
+                    resultsSection.classList.remove('frosted');
+                    resultsSection.classList.add('revealed');
 
-                // Scroll results to top
-                resultsSection.scrollTop = 0;
+                    // Auto-scroll to results
+                    setTimeout(() => {
+                        resultsSection.scrollIntoView({ behavior: 'smooth' });
+                    }, 200);
+                } else {
+                    // Desktop: hide hero content, show results in same position
+                    const heroContent = document.querySelector('.hero-content');
+                    const thoughtPaper = document.querySelector('.thought-paper-link');
+                    if (heroContent) heroContent.style.display = 'none';
+                    if (thoughtPaper) thoughtPaper.style.display = 'none';
+
+                    resultsSection.style.display = 'block';
+                    resultsSection.classList.remove('frosted');
+                    resultsSection.classList.add('revealed');
+
+                    // Scroll results to top
+                    resultsSection.scrollTop = 0;
+                }
 
             } catch (err) {
                 console.error('Email gate API error:', err);

@@ -1215,8 +1215,8 @@ input[type="number"]::placeholder {
 /* RESPONSIVE                                      */
 /* ═══════════════════════════════════════════════ */
 
-/* Tablet: ≤ 900px */
-@media (max-width: 900px) {
+/* Tablet-only: 768px – 900px (keeps desktop layout, just adapts sizing) */
+@media (min-width: 768px) and (max-width: 900px) {
     .hero-wrapper {
         flex-direction: column;
     }
@@ -1253,22 +1253,46 @@ input[type="number"]::placeholder {
     }
 }
 
-/* Mobile: ≤ 640px */
-@media (max-width: 640px) {
+
+/* ═══════════════════════════════════════════════ */
+/* MOBILE: below 768px                             */
+/* ═══════════════════════════════════════════════ */
+
+@media (max-width: 767px) {
+
+    /* --- Layout: stack vertically --- */
+    .hero-wrapper {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    /* --- Hero: full-screen on initial load --- */
     .hero-content {
+        order: 1;
+        height: auto;
+        min-height: 100vh;
+        min-height: 100svh;
+        overflow-y: visible;
         padding: 3rem 1.5rem 2rem;
+        max-width: 100%;
+    }
+
+    .hero-content-inner {
+        padding: 2rem 0;
+        min-height: auto;
     }
 
     .hero-headline {
         font-size: 1.75rem;
     }
 
-    .hero-subhead {
-        font-size: 1.1rem;
+    .hero-attribution {
+        font-size: 0.85rem;
     }
 
-    .form-panel {
-        padding: 2rem 1.5rem;
+    .hero-credibility {
+        font-size: 0.95rem;
     }
 
     .cta-hero {
@@ -1276,6 +1300,39 @@ input[type="number"]::placeholder {
         font-size: 0.9rem;
         height: 3.5rem;
         padding: 0 2rem;
+    }
+
+    /* --- Form panel: HIDDEN on mobile until "Prove It" tapped --- */
+    .form-panel {
+        display: none;
+        width: 100%;
+        min-width: unset;
+        height: auto;
+        border-right: none;
+        border-bottom: none;
+        order: 2;
+        padding: 2rem 1.5rem;
+    }
+
+    /* When JS adds this class, form appears below hero */
+    .form-panel.mobile-visible {
+        display: block;
+    }
+
+    /* Override frost on mobile — form appears immediately active */
+    .form-panel.mobile-visible.frosted,
+    .form-panel.mobile-visible.revealed {
+        filter: none;
+        opacity: 1;
+        pointer-events: auto;
+        user-select: auto;
+    }
+
+    /* --- Results: full-width below form --- */
+    .results-section {
+        order: 3;
+        height: auto;
+        overflow-y: visible;
     }
 
     .results-inner {
@@ -1286,6 +1343,7 @@ input[type="number"]::placeholder {
         font-size: 1.3rem;
     }
 
+    /* --- Diagrams --- */
     .diagram-comparison {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -1310,10 +1368,12 @@ input[type="number"]::placeholder {
         font-size: 0.9rem;
     }
 
+    /* --- Rule boxes --- */
     .rule-value {
         font-size: 1.5rem;
     }
 
+    /* --- DFY CTAs --- */
     .dfy-cta-block {
         padding: 1.5rem;
     }
@@ -1322,14 +1382,26 @@ input[type="number"]::placeholder {
         width: 100%;
     }
 
-    .modal-container {
-        padding: 2rem 1.5rem;
-    }
-
+    /* --- Output sections --- */
     .output-section h2 {
         font-size: 1.1rem;
     }
+
+    /* --- Email gate modal — sized for mobile --- */
+    .modal-container {
+        padding: 2rem 1.5rem;
+        max-width: calc(100% - 2rem);
+        width: calc(100% - 2rem);
+        margin: 0 1rem;
+    }
+
+    /* --- Bucket cards --- */
+    .buckets-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
 }
+
 
 /* Small phones: ≤ 390px */
 @media (max-width: 390px) {
