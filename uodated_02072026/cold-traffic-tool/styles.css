@@ -1421,6 +1421,11 @@ input[type="number"]::placeholder {
     .panel-footer-pipe {
         padding: 0 0.35rem;
     }
+
+    /* --- Push teal underline down so it clears the 'p' descender --- */
+    .hero-sketch-underline {
+        bottom: -20px;
+    }
 }
 
 
