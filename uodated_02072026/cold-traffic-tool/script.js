@@ -95,7 +95,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function updateGuidedFocus() {
+    let lastScrolledTo = -1;   // track which question we last scrolled to
+    let scrollTimer = null;    // track pending scroll timeout
+
+    function updateGuidedFocus(shouldScroll = true) {
         if (!formPanel.classList.contains('guided-mode')) return;
 
         let earliestIncomplete = -1;
@@ -124,24 +127,31 @@ document.addEventListener('DOMContentLoaded', () => {
             generateBtn.classList.remove('ready');
             generateCoaching.classList.remove('visible');
 
-            // Smooth scroll to active question (~35% from top)
-            // Delay must exceed CSS transition duration (padding 0.3s + coaching text 0.4s)
-            // so layout is stable before calculating scroll target
-            setTimeout(() => {
-                const scrollTarget = activeGroup.offsetTop - (formPanel.clientHeight * 0.35);
-                formPanel.scrollTo({ top: Math.max(0, scrollTarget), behavior: 'smooth' });
-            }, 420);
+            // Only scroll if the active question changed
+            if (shouldScroll && earliestIncomplete !== lastScrolledTo) {
+                lastScrolledTo = earliestIncomplete;
+                // Cancel any pending scroll
+                clearTimeout(scrollTimer);
+                // Wait for CSS transitions to settle before scrolling
+                scrollTimer = setTimeout(() => {
+                    const scrollTarget = activeGroup.offsetTop - (formPanel.clientHeight * 0.35);
+                    formPanel.scrollTo({ top: Math.max(0, scrollTarget), behavior: 'smooth' });
+                }, 420);
+            }
         } else {
             // All questions complete — activate generate button
             generateBtn.classList.remove('dimmed');
             generateBtn.classList.add('ready');
             generateCoaching.classList.add('visible');
 
-            // Scroll to generate button
-            setTimeout(() => {
-                const scrollTarget = generateBtn.offsetTop - (formPanel.clientHeight * 0.2);
-                formPanel.scrollTo({ top: Math.max(0, scrollTarget), behavior: 'smooth' });
-            }, 420);
+            if (shouldScroll && lastScrolledTo !== -2) {
+                lastScrolledTo = -2; // sentinel for "scrolled to generate"
+                clearTimeout(scrollTimer);
+                scrollTimer = setTimeout(() => {
+                    const scrollTarget = generateBtn.offsetTop - (formPanel.clientHeight * 0.2);
+                    formPanel.scrollTo({ top: Math.max(0, scrollTarget), behavior: 'smooth' });
+                }, 420);
+            }
         }
     }
 
@@ -173,10 +183,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 800);
             });
 
-            // Also advance immediately when they leave the field
+            // When leaving the field, update state but don't re-scroll
+            // (the debounced input handler or the next interaction will handle scrolling)
             input.addEventListener('blur', () => {
                 clearTimeout(numberDebounceTimer);
-                updateGuidedFocus();
+                updateGuidedFocus(false); // update classes only, no scroll
+            });
+
+            // Prevent browser's native scroll-into-view when clicking into a field
+            input.addEventListener('focus', () => {
+                // Brief delay to override browser's automatic scroll
+                setTimeout(() => {
+                    // Don't fight an ongoing guided scroll — only suppress the browser's
+                }, 0);
             });
         });
     });
