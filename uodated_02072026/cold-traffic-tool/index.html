@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Re-Engagement Planner — Is Your ESP Lying to You?</title>
+    <title>Re-Engagement Planner: Is Your ESP Lying to You?</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
@@ -170,487 +170,206 @@
             <div class="results-inner">
                 <h2 class="results-main-heading">Here's What Your ESP Won't Show You.</h2>
 
-                <div class="output-section section-postgen-visual">
-                    <div class="diagram-comparison">
-                        <div class="diagram-panel">
-                            <h3 class="diagram-title">The Visible</h3>
-                            <div class="circles-row circles-row-two">
-                                <div class="circle circle-engaged">
-                                    <span class="circle-number var-remaining-count"></span>
-                                    <span class="circle-label">Engaged</span>
-                                </div>
-                                <div class="circle circle-unengaged-dark">
-                                    <span class="circle-number var-unengaged-count"></span>
-                                    <span class="circle-label">Unengaged</span>
-                                </div>
-                            </div>
-                            <p class="diagram-caption">What you can measure</p>
+                <!-- Data Card with Integrated Reveal -->
+                <div class="data-card-reveal">
+                    <div class="data-card-grid">
+                        <!-- Top row: context/scaffolding — visually recessive -->
+                        <div class="data-card-cell data-card-minor">
+                            <span class="data-card-label">Total List Size</span>
+                            <span class="data-card-value var-list-size"></span>
                         </div>
-                        <div class="diagram-panel">
-                            <h3 class="diagram-title">The Invisible</h3>
-                            <div class="venn-container">
-                                <div class="venn-circle venn-left">
-                                    <span class="circle-number">?</span>
-                                    <span class="circle-label">Confirmed Engaged</span>
-                                </div>
-                                <div class="venn-phantom">
-                                    <span class="circle-number">?</span>
-                                    <span class="circle-label">Phantom Engaged</span>
-                                </div>
-                                <div class="venn-circle venn-right">
-                                    <span class="circle-number var-unengaged-count"></span>
-                                    <span class="circle-label">Unengaged</span>
-                                </div>
-                            </div>
-                            <p class="diagram-caption">The blind spot</p>
+                        <div class="data-card-cell data-card-minor">
+                            <span class="data-card-label">Sending Frequency</span>
+                            <span class="data-card-value var-freq-lowercase"></span>
+                        </div>
+                        <!-- Bottom row: the reveal -->
+                        <div class="data-card-cell data-card-supporting">
+                            <span class="data-card-label">Your Unengaged Estimate</span>
+                            <span class="data-card-value"><span class="var-unengaged-count"></span></span>
+                        </div>
+                        <div class="data-card-cell data-card-reveal-cell">
+                            <span class="data-card-label"><span class="card-underline-wrap">Presumed<svg
+                                        class="card-sketch-underline" viewBox="0 0 120 14" preserveAspectRatio="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M2 8 C 20 6, 40 9, 60 7 S 90 9, 118 7" fill="none" stroke="#007a6a"
+                                            stroke-width="5" stroke-linecap="round" />
+                                        <path d="M4 9 C 30 7, 55 10, 80 8 S 105 9, 117 8" fill="none" stroke="#007a6a"
+                                            stroke-width="3" stroke-linecap="round" opacity="0.4" />
+                                    </svg></span> Engaged</span>
+                            <span class="data-card-reveal-row">
+                                <span class="data-card-big-number var-remaining-count"></span>
+                                <span class="data-card-separator">|</span>
+                                <span class="data-card-badge">Unverified</span>
+                            </span>
                         </div>
                     </div>
 
-                    <div class="postgen-centered-text">
-                        <p class="postgen-headline">1 blind spot that creates 2 problems.</p>
-                        <p class="postgen-subtext">You're treating bots as fans. And some of your biggest fans as dead
-                            weight.</p>
-                        <p class="postgen-reassurance">Don't worry. We have answers.</p>
-                        <div class="scroll-arrow" aria-hidden="true">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- BLOCK 1: Personalized Risk Summary -->
-                <div class="output-section section-risk-summary">
-                    <h2>Your Re-Engagement Snapshot</h2>
-                    <p>
-                        You're sending <span class="var-freq-lowercase"></span> to <span
-                            class="var-remaining-count"></span>
-                        subscribers. You've identified roughly <span class="var-unengaged-count"></span> of them, about
-                        <span class="var-unengaged-pct"></span>% of your audience, as showing no meaningful engagement
-                        signals. That leaves <span class="var-remaining-count"></span> that you're currently treating as
-                        engaged.
-                    </p>
-                    <p>
-                        That second number deserves scrutiny. It's almost certainly too high, and the framework below
-                        will
-                        show you exactly why.
-                    </p>
-
-                    <!-- Conditional: recent_attempts (only one shown) -->
-                    <div id="attempts-no" class="conditional-block">
-                        <p>Since you said you haven't run a formal re-engagement campaign, those <span
-                                class="var-unengaged-count"></span> subscribers may have been accumulating silently. And
-                            without this new structured re-engagement process in place, you have no mechanism for
-                            determining how many of the remaining <span class="var-remaining-count"></span> are actually
-                            engaged versus simply appearing that way. Every send that reaches an unresponsive inbox
-                            without
-                            a plan behind it is a data point ISPs use against you (especially Google, and we all know
-                            how
-                            important Gmail inboxing is).</p>
-                    </div>
-                    <div id="attempts-recent-30" class="conditional-block">
-                        <p>You've recently attempted re-engagement, which means you already know this is a problem. The
-                            question is whether the approach accounted for the subscribers hiding between your
-                            &ldquo;engaged&rdquo; and &ldquo;unengaged&rdquo; segments. The ones your ESP shows as
-                            active
-                            but whose engagement can't actually be verified.</p>
-                    </div>
-                    <div id="attempts-recent-90" class="conditional-block">
-                        <p>You ran a re-engagement effort within the last 90 days. If it didn't move the needle the way
-                            you
-                            expected, the framework below will show you a likely reason: most re-engagement campaigns
-                            treat
-                            the list as two groups, engaged and unengaged, when there are actually three. The invisible
-                            middle group is where campaigns quietly fail.</p>
-                    </div>
-                    <div id="attempts-long-ago" class="conditional-block">
-                        <p>Your last re-engagement attempt was long enough ago that the landscape has changed underneath
-                            you. Privacy protections like Apple's Mail Privacy Protection have fundamentally altered
-                            what
-                            &ldquo;engagement&rdquo; even means. Subscribers your ESP reported as &ldquo;engaged&rdquo;
-                            the
-                            last time you ran this exercise may no longer be provably engaged today.</p>
-                    </div>
-
-                    <!-- Conditional: health (only one shown) -->
-                    <div id="health-healthy" class="conditional-block">
-                        <p>You've indicated that your deliverability is currently healthy, which is exactly why now is
-                            the
-                            time to address this. Sorting out your <span class="var-unengaged-count"></span> identified
-                            unengaged subscribers and determining the true engagement status of the remaining <span
-                                class="var-remaining-count"></span> while your reputation is strong is dramatically
-                            easier
-                            than doing it after ISPs start throttling you.</p>
-                    </div>
-                    <div id="health-mostly-fine" class="conditional-block">
-                        <p>You're already seeing inconsistencies in your deliverability. With <span
-                                class="var-unengaged-pct"></span>% of your list identified as unengaged, and an unknown
-                            additional portion whose &ldquo;engagement&rdquo; may be phantom signals from privacy
-                            proxies,
-                            there's a direct line between that uncertainty and the inbox placement issues you're
-                            noticing.
+                    <!-- Math lines below the card -->
+                    <div class="data-card-math">
+                        <p class="data-card-math-line">Even if 10% of them showed provable human engagement, that's only
+                            <strong class="var-remaining-10pct"></strong> actually verified. At 2%, it's <strong
+                                class="var-remaining-2pct"></strong>.
                         </p>
                     </div>
-                    <div id="health-declined" class="conditional-block">
-                        <p>Your deliverability has recently declined, and the problem may be bigger than the <span
-                                class="var-unengaged-count"></span> subscribers you've identified. ISPs interpret
-                            continued
-                            sending to unresponsive addresses as a lack of list hygiene, and if a portion of your
-                            remaining
-                            <span class="var-remaining-count"></span> subscribers are phantom engaged rather than
-                            actually
-                            active, you're sending to more unresponsive addresses than you realize. That impacts inbox
-                            placement for everyone on your list, including the subscribers you can prove are reading.
-                        </p>
-                    </div>
-                    <div id="health-unsure" class="conditional-block">
-                        <p>You're not sure about your deliverability health, and that uncertainty is itself a risk
-                            factor.
-                            With <span class="var-unengaged-pct"></span>% of your list identified as unengaged, and no
-                            way
-                            to know how many of the remaining <span class="var-remaining-count"></span> are actually
-                            active
-                            versus phantom engaged, there's a meaningful chance your inbox placement is already being
-                            affected and you don't have visibility into it.</p>
-                    </div>
 
-                    <!-- Forward Hook -->
-                    <div class="forward-hook-card">
-                        <p>The framework below breaks your list into three categories, not the two you're used to, and
-                            gives
-                            you the exact protocol for handling each one without damaging your sender reputation in the
-                            process. It starts with a concept most email marketers have never encountered.</p>
-                    </div>
+                    <!-- Consequence line (LOCKED — do not change this copy) -->
+                    <p class="data-card-consequence">Some of them are machines inflating your metrics. Some are your
+                        best customers getting buried. Your ESP treats them the same. But Gmail can tell the
+                        difference.</p>
+
+                    <!-- Bridge line -->
+                    <p class="data-card-bridge">The framework below shows you how to find out.</p>
                 </div>
 
-                <!-- SECTION: Framing -->
-                <div class="output-section section-framing">
-                    <h2>Engagement In The Modern Era</h2>
-                    <p>
-                        Engagement classification has fundamentally changed. Open rates are no longer a reliable proxy
-                        for
-                        human interest due to privacy protections like Apple's MPP. In this environment, aggressive
-                        re-engagement can damage domain reputation. We adhere to a conservative, signal-first approach
-                        to
-                        protect list health while attempting to recover value. This goal is long term stability, not
-                        short
-                        term volume.
-                    </p>
+                <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+                <!-- DFY CTA 1 — After Data Card + Bridge Line       -->
+                <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+                <div class="dfy-cta-block">
+                    <p>This framework exists inside a done for you sprint. Your list gets classified for real, your best
+                        customers stop getting buried, and the subscribers you've been afraid to touch get handled
+                        safely. One person built this framework, and one person runs every sprint.</p>
+                    <a href="https://dfy.reengage.pro" target="_blank" rel="noopener noreferrer" class="cta-primary">
+                        <span class="material-symbols-outlined">arrow_forward</span>
+                        See How The Sprint Works
+                    </a>
                 </div>
 
-                <!-- BLOCK 2: Emotional Hook -->
-                <div class="output-section section-emotional-hook-buckets">
-                    <p>
-                        <strong>Why this matters for your list:</strong> The instinct is to treat your list as 2 groups,
-                        engaged and unengaged. Both your ESP and your gut reinforce that view. But it's wrong.
-                    </p>
-                    <p>
-                        You entered <span class="var-list-size"></span> total and <span
-                            class="var-unengaged-count"></span>
-                        unengaged, which means you're treating the remaining <span class="var-remaining-count"></span>
-                        as
-                        engaged. <strong>But a significant portion of that group is 100% Phantom Engaged:</strong>
-                        subscribers whose &ldquo;opens&rdquo; are generated by privacy proxies, not human behavior.
-                    </p>
-                    <p>
-                        The actual number of confirmed engaged subscribers on your list is likely lower than <span
-                            class="var-remaining-count"></span>, and you won't know by how much until you apply the
-                        observation window below.
-                    </p>
-                    <p>
-                        This framework splits your list into 3 buckets, not 2. The middle bucket, Phantom Engaged, is
-                        the
-                        one most email marketers have never considered. It's also the one that determines whether your
-                        re-engagement effort helps or hurts. Here, let me show you what I mean:
-                    </p>
-                </div>
-
-                <!-- SECTION: Engagement Buckets -->
+                <!-- SECTION: Engagement Buckets (Rewritten — visceral, shorter) -->
                 <div class="output-section section-buckets">
                     <h2>The 3 Subscriber Buckets</h2>
                     <div class="buckets-grid">
                         <div class="bucket-item">
                             <h3 class="bucket-title bucket-a-title">Bucket A: Confirmed Engaged</h3>
                             <div class="bucket-card">
-                                <p>Subscribers showing verified <strong>human intent</strong> such as clicks, replies,
-                                    or
-                                    purchases. Opens are optional, but Bucket A requires undeniable human interaction.
+                                <p>Verified human. Opens <em>and</em> clicks, replies, or purchases. Your foundation.
                                 </p>
                             </div>
                         </div>
                         <div class="bucket-item">
                             <h3 class="bucket-title bucket-b-title">Bucket B: Phantom Engaged</h3>
                             <div class="bucket-card">
-                                <p>Subscribers showing opens without other human intent. These signals may be human or
-                                    automated. This bucket represents uncertainty, not behavior.</p>
+                                <p>Opens but never clicks. Could be human. Could be a bot. Your ESP can't tell the
+                                    difference.</p>
                             </div>
                         </div>
                         <div class="bucket-item">
                             <h3 class="bucket-title bucket-c-title">Bucket C: Unengaged</h3>
                             <div class="bucket-card">
-                                <p>Subscribers showing no engagement signals whatsoever, not even opens, within a
-                                    defined
-                                    observation window. These subscribers require controlled, finite re-engagement.</p>
+                                <p>Dark. No signals at all. Costing you reputation every time you hit send.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- SECTION: Visual Explanation -->
-                <div class="output-section section-visual">
-                    <img src="assets/venn_darktheme.jpeg" alt="Email Engagement Classification Evolution Diagram"
-                        class="diagram-image">
-                    <div class="forward-hook-card">
-                        <p>Now that you can see all three categories, here's the good news: each one has a clear
-                            protocol.
-                            Bucket A takes care of itself. Bucket B and C are where this framework gives you the clarity
-                            you've never had before. Let's walk through exactly what to do.</p>
-                    </div>
-                </div>
-
-                <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
-                <!-- DFY CTA 1 — After Framework Explanation         -->
-                <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
-                <div class="dfy-cta-block">
-                    <p>This framework exists inside a done-for-you sprint. Your list gets classified for real, your best
-                        customers stop getting buried, and the subscribers you've been afraid to touch get handled
-                        safely.
-                        One person built this framework, and one person runs every sprint.</p>
-                    <a href="https://dfy.reengage.pro" target="_blank" rel="noopener noreferrer" class="cta-primary">
-                        <span class="material-symbols-outlined">arrow_forward</span>
-                        See How The Sprint Works
-                    </a>
-                </div>
-
-                <!-- BLOCK 3: Emotional Hook — Opens Only / Has Signals -->
-                <div class="output-section section-emotional-hook-b">
-                    <div id="block3-opens-only" class="conditional-block">
-                        <p>This is the bucket that matters most for your situation. You're tracking opens but not
-                            clicks,
-                            replies, or purchases. That means right now, you have no reliable way to distinguish between
-                            a
-                            subscriber who actually opened your email and one whose device auto-loaded tracking pixels
-                            through Apple's Mail Privacy Protection or a corporate security filter.</p>
-                        <p>Some portion of your <span class="var-unengaged-count"></span> &ldquo;unengaged&rdquo;
-                            subscribers may actually be opening. They just don't have a click or reply to prove it. And
-                            some
-                            portion of the <span class="var-remaining-count"></span> you're treating as
-                            &ldquo;engaged&rdquo; may not be engaged at all. Their &ldquo;opens&rdquo; are
-                            machine-generated.</p>
-                        <p>Without stronger signals, your <span class="var-obs-window"></span>-day observation window is
-                            the
-                            only mechanism for beginning to sort this out. It won't give you certainty, but it gives you
-                            a
-                            defensible classification.</p>
-                    </div>
-                    <div id="block3-has-signals" class="conditional-block">
-                        <p id="block3-good-news-p1"></p>
-                        <p>But that doesn't eliminate Bucket B. Among the <span class="var-remaining-count"></span>
-                            subscribers you're treating as engaged, there are still those who show opens but have never
-                            produced a verifiable signal. Those subscribers are phantom engaged until proven otherwise.
-                            The
-                            <span class="var-obs-window"></span>-day observation window below is how you make that
-                            determination.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- SECTION: Bucket A Handling -->
+                <!-- SECTION: Bucket A Handling (Compressed) -->
                 <div class="output-section section-bucket-a">
-                    <h2>Bucket A: Confirmed Engaged — Your Foundation</h2>
-                    <p>These are subscribers who have produced verifiable human signals: <span
-                            class="var-signal-list"></span>. They are your foundation. Continue sending to them
-                        normally.
-                        They protect your sender reputation and generate the engagement metrics that ISPs use to
-                        evaluate
-                        your domain.</p>
-                    <p>No action required here beyond maintaining the quality of your content and monitoring for
-                        engagement
-                        decay over time.</p>
+                    <h2>Bucket A: Confirmed Engaged. Your Foundation.</h2>
+                    <p>These subscribers have proven they're human. Clicks, replies, purchases. Signals a bot can't
+                        fake. Keep sending to them normally. They protect your sender reputation and they're the
+                        baseline everything else is measured against.</p>
                 </div>
 
-                <!-- SECTION: Bucket B Classification Rules (CORRECTED — Doc 4) -->
+                <!-- SECTION: Bucket B Classification Rules -->
                 <div class="output-section section-bucket-b">
                     <h2>Bucket B: Handling Phantom Engagement</h2>
-                    <p>Phantom Engaged subscribers (<span id="bucket-b-qualifier-opens" class="conditional-inline">opens
-                            only</span><span id="bucket-b-qualifier-signals" class="conditional-inline"
-                            style="display:none;">opens without provable intent</span>) require a specific observation
-                        window to determine safety. Classification relies on sending frequency.</p>
+                    <p>Phantom Engaged subscribers, <span id="bucket-b-qualifier-opens" class="conditional-inline">opens
+                            only, no other signals</span><span id="bucket-b-qualifier-signals"
+                            class="conditional-inline" style="display:none;">opens
+                            without provable intent</span>, require a controlled diagnostic window to classify. The
+                        length depends on your sending frequency.</p>
+
                     <div class="rule-box">
                         <p class="rule-label">Your Observation Window:</p>
                         <p class="rule-value" id="bucket-b-window">-- Days</p>
                         <hr class="rule-divider">
                         <p class="rule-reference-label">Reference:</p>
                         <p class="rule-explanation">
-                            Daily sending: classify after 45 days.
-                            <br>
-                            Weekly sending: classify after 60 days.
-                            <br>
-                            Monthly/Sporadic sending: classify after 90 days.
+                            Daily sending: 45 days. Weekly: 60 days. Monthly/Sporadic: 90 days.
                         </p>
                     </div>
 
-                    <!-- CORRECTED Bucket B Action (Doc 4 critical change) -->
-                    <p><strong>Action:</strong> This is an active diagnostic protocol, not passive observation. During
-                        the
-                        <span id="bucket-b-days-repeat">--</span>-day window:
-                    </p>
-                    <ol class="rules-list">
-                        <li><strong>Reduce sending frequency</strong> for this group specifically. Do not continue your
-                            normal cadence.</li>
-                        <li><strong>Change the content strategy.</strong> Every message sent to Bucket B during the
-                            observation window must require a human action to register engagement — a click, a reply, or
-                            a
-                            purchase. Opens alone cannot distinguish humans from bots, which is the entire reason these
-                            subscribers are in Bucket B.</li>
-                        <li><strong>Observe for the full classification window.</strong> You are deliberately creating
-                            conditions where a real human would reveal themselves and a bot or proxy engagement would
-                            not.
-                        </li>
-                        <li>If they produce a <strong>verifiable human signal</strong> (click, reply, purchase) during
-                            the
-                            window, <strong>move them to Bucket A</strong> (Confirmed Engaged).</li>
-                        <li>If they produce <strong>no human signal</strong> after the window expires, <strong>move them
-                                to
-                                Bucket C</strong> (Unengaged).</li>
-                    </ol>
-                    <p>The frequency reduction prevents further deliverability damage while the diagnostic runs. The
-                        content
-                        change — requiring clicks and replies, not just opens — is the core mechanism that separates
-                        real
-                        subscribers from phantom engagement.</p>
+                    <p>During that window, every send to this group has to be redesigned. Normal marketing content won't
+                        work. You need messages specifically engineered to force a human response. Clicks. Replies.
+                        Something a bot can't fake. Your sending frequency to this segment has to drop. Your content
+                        strategy has to change for every message. And you need to monitor deliverability signals daily
+                        to make sure the diagnostic itself isn't causing reputation damage. If a subscriber proves
+                        they're human during the <span id="bucket-b-days-repeat">--</span>-day window, they move to
+                        Bucket A. If they produce nothing, they move to Bucket C. There is no third outcome.</p>
 
-                    <!-- Inline Sprint Mention 1 (Doc 4) -->
-                    <p>This classification process is one of the three deliverables in the done-for-you sprint, built
+                    <p>This classification process is one of the three deliverables in the done for you sprint, built
                         directly inside your ESP using your real subscriber data.</p>
+                </div>
 
-                    <!-- Forward Hook -->
-                    <p class="forward-hook">The observation window gives you a way to classify Phantom Engaged
-                        subscribers
-                        over time. But it doesn't address the subscribers who are clearly unengaged, the ones with no
-                        signals at all. That's Bucket C, and it's where the stakes are highest. The wrong approach here
-                        doesn't just fail to recover subscribers. It actively damages your ability to reach the ones who
-                        are
-                        still paying attention.</p>
+                <!-- SECTION: Testimonials -->
+                <div class="output-section section-testimonials">
+                    <p class="testimonial-eyebrow">This sprint will give you structure, clarity, and solid data to make
+                        decisions with from here forward.</p>
+
+                    <div class="testimonial-stack">
+                        <blockquote class="testimonial-quote">
+                            <p>"We were making millions per month with our email marketing and thought we 'knew it all'
+                                until Chuck arrived. His years of experience and genius poured fuel on the fire and had
+                                our team performing at levels that would have otherwise taken years to develop. If you
+                                have the chance, grab him."</p>
+                            <cite>Keala Kanae <span class="testimonial-descriptor">· Founder/CEO, Fullstaq Marketer ·
+                                    $100M+ in Email Revenue</span></cite>
+                        </blockquote>
+
+                        <blockquote class="testimonial-quote">
+                            <p>"Before working with Chuck, we weren't sure what was going to happen to thousands of our
+                                contacts that were previously disengaged, and if our email reputation would ever
+                                recover. Now we're coming back with a vengeance and are confident this trend will
+                                continue into the future."</p>
+                            <cite>Trevor Larsen <span class="testimonial-descriptor">· Clever Investor · Real Estate
+                                    Education · Inc. 5000</span></cite>
+                        </blockquote>
+
+                        <blockquote class="testimonial-quote">
+                            <p>"We went from 2-3% open rates, to dramatically breaking down doors within as little as 2
+                                weeks, as high as 25% with Chuck manning our campaigns. Although he was hired for a
+                                short two-week project, he has now been on board for 3 months and counting."</p>
+                            <cite>Andy Bouchie <span class="testimonial-descriptor">· Town Vapor · National E-Liquid
+                                    Brand</span></cite>
+                        </blockquote>
+                    </div>
                 </div>
 
                 <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
-                <!-- DFY CTA 2 — After Bucket B Resolution           -->
+                <!-- DFY CTA 2 — After Bucket B + Testimonials       -->
                 <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
                 <div class="dfy-cta-block">
                     <p>Everything you just read about handling Phantom Engaged subscribers is what the sprint does. 30
-                        to 60
-                        days of controlled re-engagement, monitored daily, using software built specifically for this.
-                        You
-                        don't run it. I do.</p>
+                        to 60 days of controlled re-engagement, monitored daily, using software built specifically for
+                        this. You don't run it. I do.</p>
                     <a href="https://dfy.reengage.pro" target="_blank" rel="noopener noreferrer" class="cta-primary">
                         <span class="material-symbols-outlined">arrow_forward</span>
-                        See How The Sprint Works
+                        Get This Handled
                     </a>
                 </div>
 
-                <!-- BLOCK 4: Emotional Hook — Bucket C -->
-                <div class="output-section section-emotional-hook-c">
-                    <p>Here's where discipline protects your entire operation. With <span
-                            class="var-unengaged-count"></span> subscribers in your identified unengaged pool, the
-                        temptation is to re-engage them all at once and &ldquo;get it over with.&rdquo; But if you send
-                        to
-                        all <span class="var-unengaged-count"></span> simultaneously, that's a <span
-                            class="var-unengaged-pct"></span>% spike in volume hitting addresses that haven't responded
-                        to
-                        you in months. ISPs don't just penalize that batch. They throttle delivery to your entire list,
-                        including your confirmed engaged subscribers, the ones you can actually prove are reading.</p>
-                    <p>And remember: if your Phantom Engaged bucket is larger than you think, which, based on your
-                        inputs,
-                        it likely is, then you're already sending to more unresponsive addresses than your ESP is
-                        showing
-                        you. A mass re-engagement blast on top of that would compound the problem.</p>
-                    <p>The controlled approach below keeps you under the radar.</p>
-                </div>
-
-                <!-- Inline Sprint Mention 2 (Doc 4) — Inside Bucket C -->
-                <!-- (Placed after the emotional hook about mass blasts being dangerous) -->
-
-                <!-- SECTION: Bucket C Re-Engagement Framework -->
+                <!-- SECTION: Bucket C Re-Engagement (Two-Send Limit folded in) -->
                 <div class="output-section section-bucket-c">
                     <h2>Bucket C: Controlled Re-Engagement</h2>
-                    <p>We do not blast unengaged subscribers. We re-engage in controlled waves alongside normal
-                        campaigns.
-                        Note: This volume threshold is reduced from older practices to account for modern uncertainty.
-                    </p>
 
-                    <!-- Inline Sprint Mention 2 (Doc 4) -->
-                    <p>This is exactly what the done-for-you sprint is built to manage. Every re-engagement send is
+                    <p>Each unengaged subscriber gets exactly two re-engagement emails. Not three. Not a drip sequence.
+                        Two. If they don't respond after the second attempt, they're permanently suppressed. Removed
+                        from your sending pool forever.</p>
+
+                    <p>And those two emails can't be sent all at once. Daily volume is capped at 5% of your unengaged
+                        pool, roughly <strong id="reengage-vol"></strong> per day based on your numbers, to prevent
+                        ISPs from reading the spike as a list bomb. You start with the warmest subscribers first, work
+                        outward, and monitor deliverability after every batch. One misstep like sending too fast,
+                        targeting
+                        the wrong segment first, or continuing past the two attempt limit accelerates the reputation
+                        damage you're trying to fix.</p>
+
+                    <p>This is exactly what the done for you sprint is built to manage. Every re-engagement send is
                         individually monitored against live deliverability signals, with daily adjustments based on how
-                        ISPs
-                        are responding.</p>
+                        ISPs are responding.</p>
 
-                    <div class="rule-box">
-                        <p class="rule-label">Maximum Daily Re-Engagement Volume:</p>
-                        <p class="rule-value" id="reengage-vol">-- Subscribers / Day</p>
-                        <p class="rule-explanation">
-                            This cap represents <strong>5% of the <span class="var-unengaged-count"></span> you've
-                                identified as unengaged</strong>.
-                            <br>
-                            Start with the warmest unengaged subscribers first.
-                        </p>
-                    </div>
-
-                    <!-- Forward Hook -->
-                    <p class="forward-hook">So you know the daily volume. You know to start with the warmest subscribers
-                        first. But there's one more rule that most re-engagement campaigns ignore, and ignoring it is
-                        how
-                        well-intentioned cleanup efforts turn into reputation-damaging loops.</p>
-                </div>
-
-                <!-- SECTION: Two-Send Limit & Exit Rules -->
-                <div class="output-section section-limits">
-                    <h2>The Two-Send Limit</h2>
-                    <p>Re-engagement is finite. It does not repeat logic loops.</p>
-                    <ol class="rules-list">
-                        <li>Each unengaged subscriber receives exactly <strong>two</strong> re-engagement specific
-                            emails.
-                        </li>
-                        <li><strong>Exit Rule A (Success):</strong> Any click or reply immediately moves them to Bucket
-                            A
-                            (Confirmed Engaged).</li>
-                        <li><strong>Exit Rule B (Failure):</strong> If no action is taken after email #2, the subscriber
-                            is
-                            <strong>permanently suppressed</strong>.
-                        </li>
-                    </ol>
-                    <div class="alert-box">
-                        <strong>Hard Stop:</strong> Do not continue emailing subscribers who fail to convert after two
-                        dedicated attempts. Re-engagement must not repeat indefinitely.
-                    </div>
-                </div>
-
-                <!-- Inline Sprint Mention 3 (Doc 4) — After Two-Send Limit -->
-                <div class="output-section section-sprint-mention-3">
-                    <p>The sprint runs this entire Bucket C process for you, including volume pacing, warmest-first
-                        sequencing, exit rule enforcement, and permanent suppression of non-responders. It uses
-                        proprietary
-                        software that isn't publicly available to monitor every send in real time.</p>
-                </div>
-
-                <!-- SECTION: Repair-First Logic (Conditional) -->
-                <div class="output-section section-repair" id="section-repair" style="display: none;">
-                    <div class="repair-alert">
-                        <h2>⚠️ CAUTION: Stabilization Recommended First</h2>
-                        <p>
-                            You indicated <strong><span id="repair-reason">--</span></strong>.
-                        </p>
-                        <p>
-                            <strong>Prioritize stabilization before expansion.</strong>
-                        </p>
-                        <ul>
-                            <li>Reduce re-engagement velocity or pause entirely.</li>
-                            <li>Focus sending ONLY to Bucket A (Confirmed Engaged) for 2-4 weeks.</li>
-                            <li>Wait for deliverability metrics to stabilize before attempting further re-engagement.
-                            </li>
-                        </ul>
-                    </div>
+                    <p>The sprint runs this entire process for you, including volume pacing, warmest first sequencing,
+                        exit rule enforcement, and permanent suppression of non-responders. It uses proprietary software
+                        that isn't publicly available to monitor every send in real time.</p>
                 </div>
 
                 <!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
@@ -665,22 +384,42 @@
                         guessing.</p>
                     <a href="https://dfy.reengage.pro" target="_blank" rel="noopener noreferrer" class="cta-primary">
                         <span class="material-symbols-outlined">arrow_forward</span>
-                        See How The Sprint Works
+                        Start My Sprint
                     </a>
                 </div>
 
-                <!-- WAITLIST BLOCK — Bottom of Page -->
+                <!-- SECTION: Repair-First Logic (Conditional) -->
+                <div class="output-section section-repair" id="section-repair" style="display: none;">
+                    <div class="repair-alert">
+                        <h2>⚠️ CAUTION: Stabilization Recommended First</h2>
+                        <p>You indicated <strong><span id="repair-reason">--</span></strong>.</p>
+                        <p><strong>Prioritize stabilization before expansion.</strong> Reduce re-engagement velocity or
+                            pause entirely. Focus sending ONLY to Bucket A (Confirmed Engaged) for 2-4 weeks. Wait for
+                            deliverability metrics to stabilize before attempting further re-engagement.</p>
+                        <p>Your deliverability is already declining. The sprint starts with stabilization: stopping the
+                            bleeding before starting the recovery.</p>
+                        <a href="https://dfy.reengage.pro" target="_blank" rel="noopener noreferrer"
+                            class="cta-primary repair-cta">
+                            <span class="material-symbols-outlined">arrow_forward</span>
+                            Get This Stabilized
+                        </a>
+                    </div>
+                </div>
+
+                <!-- WAITLIST BLOCK -->
                 <div class="waitlist-block">
                     <p>ReEngage Pro is the software behind this sprint. It's the same system used to classify
-                        subscribers
-                        and run controlled re-engagement on client lists. It's not publicly available yet, but it will
-                        be.
-                        If you want to run this process on your own list when it launches, the waitlist is how you get
-                        early
-                        access.</p>
+                        subscribers and run controlled re-engagement on client lists. It's not publicly available yet,
+                        but it will be. If you want to run this process on your own list when it launches, the waitlist
+                        is how you get early access.</p>
                     <a href="https://reengage.pro/" target="_blank" rel="noopener noreferrer" class="cta-secondary">
                         Join the ReEngage Pro Waitlist
                     </a>
+                </div>
+
+                <!-- Closing Beat -->
+                <div class="closing-beat">
+                    <p>Your list is still sending these signals to Gmail right now.</p>
                 </div>
 
                 <!-- Footer -->
