@@ -1485,6 +1485,10 @@ input[type="number"]::placeholder {
         grid-template-columns: 1fr;
         gap: 1rem;
     }
+
+    .bucket-b-glow {
+        margin-top: 1rem;
+    }
 }
 
 
