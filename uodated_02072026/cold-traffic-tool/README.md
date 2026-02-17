@@ -1,5 +1,16 @@
 # Cold Traffic Tool
 
+## ⚠️ DEPLOYMENT — READ BEFORE DEPLOYING
+
+**This tool is a SUBFOLDER inside a larger repo.** You MUST use `--path-as-root` to deploy only this folder:
+
+```bash
+# From the parent directory (uodated_02072026/):
+railway up cold-traffic-tool --path-as-root --service cold-traffic-tool
+```
+
+**DO NOT** run `railway up` from the parent directory without `--path-as-root` — it will deploy the main project's files and break this tool.
+
 ## Status
 **Currently deployed** as part of the main Railway service at `/cold-traffic-tool/` path.
 
