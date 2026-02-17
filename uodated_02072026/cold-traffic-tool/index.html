@@ -5,6 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Re-Engagement Planner: Is Your ESP Lying to You?</title>
+
+    <!-- GEO: Meta description & author -->
+    <meta name="description"
+        content="Free re-engagement planning tool by Chuck Mullaney. Diagnose Phantom Engagement in your email list — find out how many subscribers your ESP is misclassifying as engaged when they're actually bots or inactive.">
+    <meta name="author" content="Chuck Mullaney">
+
+    <!-- GEO: Open Graph -->
+    <meta property="og:title" content="Re-Engagement Planner: Is Your ESP Lying to You?">
+    <meta property="og:description"
+        content="Free diagnostic tool that reveals how many of your 'engaged' subscribers are actually Phantom Engaged — bots and inactive contacts inflating your ESP metrics.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://plannertoolv2.phantomengaged.com/">
+
+    <!-- GEO: Canonical URL -->
+    <link rel="canonical" href="https://plannertoolv2.phantomengaged.com/">
+
+    <!-- GEO: Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Re-Engagement Planner: Is Your ESP Lying to You?">
+    <meta name="twitter:description"
+        content="Free diagnostic tool that reveals Phantom Engagement in your email list. Built by Chuck Mullaney, 25-year email deliverability veteran.">
+
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
@@ -18,10 +40,10 @@
     <!-- STAGE 1: HERO + PERSUASION (Doc 2)          -->
     <!-- ============================================ -->
 
-    <main class="hero-wrapper">
+    <main class="hero-wrapper" role="main">
 
         <!-- Frosted Form Column (desktop only on initial load) -->
-        <aside id="form-panel" class="form-panel frosted">
+        <aside id="form-panel" class="form-panel frosted" aria-label="Re-engagement planning form">
             <header class="form-header">
                 <h2 style="font-weight: 500;">Ok, your list. Your numbers. Let's see...</h2>
             </header>
@@ -164,7 +186,8 @@
         <!-- STAGE 2-3: RESULTS + EMAIL GATE (Doc 3-4)   -->
         <!-- ============================================ -->
 
-        <section id="results-section" class="results-section" style="display: none;">
+        <section id="results-section" class="results-section" style="display: none;"
+            aria-label="Personalized re-engagement results">
 
             <!-- PERSONALIZED VISUAL BLOCK -->
             <div class="results-inner">
@@ -422,6 +445,61 @@
                     <p>Your list is still sending these signals to Gmail right now.</p>
                 </div>
 
+                <!-- GEO: FAQ Section -->
+                <section class="faq-section" aria-label="Frequently asked questions">
+                    <h2 class="faq-heading">Frequently Asked Questions</h2>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">What is Phantom Engagement?</h3>
+                        <p class="faq-answer">Phantom Engagement is a term coined by Chuck Mullaney to describe email
+                            subscribers who appear engaged in your ESP metrics but are not real human interactions.
+                            These are contacts who register opens — often triggered by bots, privacy proxies, or
+                            automated security scanners — but never click, reply, or purchase. Your ESP counts them as
+                            "engaged," which inflates your metrics and masks deliverability problems.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">Why can't my ESP tell the difference between bots and real subscribers?
+                        </h3>
+                        <p class="faq-answer">ESPs track opens using a tiny invisible pixel loaded when an email is
+                            viewed. The problem is that security scanners, corporate firewalls, and Apple's Mail Privacy
+                            Protection all trigger that same pixel without a human ever seeing the email. Your ESP has
+                            no way to distinguish a bot open from a real open. The only way to confirm a subscriber is
+                            human is through provable intent signals like clicks, replies, or purchases — actions that
+                            bots cannot fake.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">How does the re-engagement observation window work?</h3>
+                        <p class="faq-answer">The observation window is a controlled diagnostic period where Phantom
+                            Engaged subscribers receive specially designed emails that require a human action to respond
+                            — clicks, replies, or conversions. The window length depends on your sending frequency: 45
+                            days for daily senders, 60 days for weekly, and 90 days for monthly or irregular senders. If
+                            a subscriber proves they're human during that window, they're reclassified as Confirmed
+                            Engaged. If they produce no provable signals, they move to the Unengaged bucket.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">How does Phantom Engagement hurt my sender reputation?</h3>
+                        <p class="faq-answer">Gmail, Microsoft, and other inbox providers track how recipients interact
+                            with your emails. When you send to subscribers who never truly engage — even if your ESP
+                            reports them as "open" — inbox providers see low genuine engagement rates. Over time, this
+                            signals that your emails aren't wanted, pushing more of your mail to spam. The more Phantom
+                            Engaged subscribers you send to, the worse your reputation becomes, which buries your emails
+                            even for subscribers who actually want them.</p>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">What is the two-send re-engagement limit?</h3>
+                        <p class="faq-answer">Each unengaged subscriber gets exactly two re-engagement emails — not a
+                            drip sequence, not three, exactly two. If they don't respond with a provable human action
+                            after the second attempt, they're permanently suppressed from your sending pool. Daily
+                            volume is limited to 5% of your unengaged pool per day to prevent ISPs from flagging the
+                            volume spike as a list bomb. This controlled approach protects your sender reputation while
+                            giving recoverable subscribers a fair chance to re-engage.</p>
+                    </div>
+                </section>
+
                 <!-- Footer -->
                 <footer class="panel-footer">
                     <div class="panel-footer-separator"></div>
@@ -480,6 +558,81 @@
     </div>
 
     <script src="script.js"></script>
+
+    <!-- GEO: JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Re-Engagement Planner",
+        "alternateName": "Phantom Engagement Diagnostic Tool",
+        "description": "Free diagnostic tool that reveals how many of your email subscribers are Phantom Engaged — appearing active in your ESP but never truly engaging. Built by Chuck Mullaney, a 25-year email deliverability veteran.",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Chuck Mullaney",
+            "jobTitle": "Email Deliverability Expert",
+            "url": "https://expert.email",
+            "description": "25-year email deliverability veteran. Creator of the Phantom Engagement framework and the ReEngage Pro platform."
+        },
+        "dateModified": "2026-02-17"
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is Phantom Engagement?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Phantom Engagement is a term coined by Chuck Mullaney to describe email subscribers who appear engaged in your ESP metrics but are not real human interactions. These are contacts who register opens — often triggered by bots, privacy proxies, or automated security scanners — but never click, reply, or purchase. Your ESP counts them as 'engaged,' which inflates your metrics and masks deliverability problems."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Why can't my ESP tell the difference between bots and real subscribers?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "ESPs track opens using a tiny invisible pixel loaded when an email is viewed. The problem is that security scanners, corporate firewalls, and Apple's Mail Privacy Protection all trigger that same pixel without a human ever seeing the email. Your ESP has no way to distinguish a bot open from a real open. The only way to confirm a subscriber is human is through provable intent signals like clicks, replies, or purchases — actions that bots cannot fake."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How does the re-engagement observation window work?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The observation window is a controlled diagnostic period where Phantom Engaged subscribers receive specially designed emails that require a human action to respond — clicks, replies, or conversions. The window length depends on your sending frequency: 45 days for daily senders, 60 days for weekly, and 90 days for monthly or irregular senders. If a subscriber proves they're human during that window, they're reclassified as Confirmed Engaged. If they produce no provable signals, they move to the Unengaged bucket."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How does Phantom Engagement hurt my sender reputation?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Gmail, Microsoft, and other inbox providers track how recipients interact with your emails. When you send to subscribers who never truly engage — even if your ESP reports them as 'open' — inbox providers see low genuine engagement rates. Over time, this signals that your emails aren't wanted, pushing more of your mail to spam. The more Phantom Engaged subscribers you send to, the worse your reputation becomes, which buries your emails even for subscribers who actually want them."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is the two-send re-engagement limit?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Each unengaged subscriber gets exactly two re-engagement emails — not a drip sequence, not three, exactly two. If they don't respond with a provable human action after the second attempt, they're permanently suppressed from your sending pool. Daily volume is limited to 5% of your unengaged pool per day to prevent ISPs from flagging the volume spike as a list bomb. This controlled approach protects your sender reputation while giving recoverable subscribers a fair chance to re-engage."
+                }
+            }
+        ]
+    }
+    </script>
 </body>
 
 </html>

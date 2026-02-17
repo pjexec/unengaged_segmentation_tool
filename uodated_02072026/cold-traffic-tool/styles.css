@@ -1213,6 +1213,51 @@ input[type="number"]::placeholder {
 
 
 /* ═══════════════════════════════════════════════ */
+/* FAQ SECTION (GEO)                               */
+/* ═══════════════════════════════════════════════ */
+
+.faq-section {
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 2.5rem;
+    margin-top: 3rem;
+}
+
+.faq-heading {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-heading);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.faq-item {
+    margin-bottom: 1.75rem;
+    padding-bottom: 1.75rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.faq-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.faq-question {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent-primary);
+    margin-bottom: 0.5rem;
+}
+
+.faq-answer {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--text-body);
+    line-height: 1.7;
+}
+
+
+/* ═══════════════════════════════════════════════ */
 /* EMAIL GATE MODAL (Doc 3)                        */
 /* ═══════════════════════════════════════════════ */
 
