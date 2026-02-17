@@ -822,21 +822,40 @@ input[type="number"]::placeholder {
 }
 
 /* Bucket B glow */
+.bucket-b-glow {
+    position: relative;
+}
+
 .bucket-b-glow .bucket-card {
     border-color: rgba(62, 207, 142, 0.35);
     box-shadow: 0 0 12px rgba(62, 207, 142, 0.15), 0 0 24px rgba(62, 207, 142, 0.08);
 }
 
-/* "This is new" label above Bucket B */
+/* "This is new" label + arrow — floats above without affecting grid */
+.bucket-new-wrapper {
+    position: absolute;
+    top: -3.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+    white-space: nowrap;
+}
+
 .bucket-new-label {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 600;
+    font-size: 0.8rem;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--accent-primary);
-    text-align: center;
-    margin-bottom: 0.4rem;
+    color: #4ade80;
+}
+
+.bucket-new-arrow {
+    width: 22px;
+    height: 28px;
+    flex-shrink: 0;
 }
 
 .bucket-card p {
