@@ -470,16 +470,6 @@
                     </div>
 
                     <div class="faq-item">
-                        <h3 class="faq-question">How does the re-engagement observation window work?</h3>
-                        <p class="faq-answer">The observation window is a controlled diagnostic period where Phantom
-                            Engaged subscribers receive specially designed emails that require a human action to respond
-                            — clicks, replies, or conversions. The window length depends on your sending frequency: 45
-                            days for daily senders, 60 days for weekly, and 90 days for monthly or irregular senders. If
-                            a subscriber proves they're human during that window, they're reclassified as Confirmed
-                            Engaged. If they produce no provable signals, they move to the Unengaged bucket.</p>
-                    </div>
-
-                    <div class="faq-item">
                         <h3 class="faq-question">How does Phantom Engagement hurt my sender reputation?</h3>
                         <p class="faq-answer">Gmail, Microsoft, and other inbox providers track how recipients interact
                             with your emails. When you send to subscribers who never truly engage — even if your ESP
@@ -487,16 +477,6 @@
                             signals that your emails aren't wanted, pushing more of your mail to spam. The more Phantom
                             Engaged subscribers you send to, the worse your reputation becomes, which buries your emails
                             even for subscribers who actually want them.</p>
-                    </div>
-
-                    <div class="faq-item">
-                        <h3 class="faq-question">What is the two-send re-engagement limit?</h3>
-                        <p class="faq-answer">Each unengaged subscriber gets exactly two re-engagement emails — not a
-                            drip sequence, not three, exactly two. If they don't respond with a provable human action
-                            after the second attempt, they're permanently suppressed from your sending pool. Daily
-                            volume is limited to 5% of your unengaged pool per day to prevent ISPs from flagging the
-                            volume spike as a list bomb. This controlled approach protects your sender reputation while
-                            giving recoverable subscribers a fair chance to re-engage.</p>
                     </div>
                 </section>
 
@@ -608,26 +588,10 @@
             },
             {
                 "@type": "Question",
-                "name": "How does the re-engagement observation window work?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "The observation window is a controlled diagnostic period where Phantom Engaged subscribers receive specially designed emails that require a human action to respond — clicks, replies, or conversions. The window length depends on your sending frequency: 45 days for daily senders, 60 days for weekly, and 90 days for monthly or irregular senders. If a subscriber proves they're human during that window, they're reclassified as Confirmed Engaged. If they produce no provable signals, they move to the Unengaged bucket."
-                }
-            },
-            {
-                "@type": "Question",
                 "name": "How does Phantom Engagement hurt my sender reputation?",
                 "acceptedAnswer": {
                     "@type": "Answer",
                     "text": "Gmail, Microsoft, and other inbox providers track how recipients interact with your emails. When you send to subscribers who never truly engage — even if your ESP reports them as 'open' — inbox providers see low genuine engagement rates. Over time, this signals that your emails aren't wanted, pushing more of your mail to spam. The more Phantom Engaged subscribers you send to, the worse your reputation becomes, which buries your emails even for subscribers who actually want them."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "What is the two-send re-engagement limit?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Each unengaged subscriber gets exactly two re-engagement emails — not a drip sequence, not three, exactly two. If they don't respond with a provable human action after the second attempt, they're permanently suppressed from your sending pool. Daily volume is limited to 5% of your unengaged pool per day to prevent ISPs from flagging the volume spike as a list bomb. This controlled approach protects your sender reputation while giving recoverable subscribers a fair chance to re-engage."
                 }
             }
         ]

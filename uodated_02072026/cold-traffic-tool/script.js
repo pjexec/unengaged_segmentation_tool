@@ -543,6 +543,8 @@ document.addEventListener('DOMContentLoaded', () => {
         populateVarSpans('var-obs-window', plan.observationWindow);
         populateVarSpans('var-daily-cap', plan.dailyCap.toLocaleString());
         populateVarSpans('var-signal-list', plan.signalList);
+        populateVarSpans('var-remaining-10pct', Math.round(plan.remainingCount * 0.10).toLocaleString());
+        populateVarSpans('var-remaining-2pct', Math.round(plan.remainingCount * 0.02).toLocaleString());
 
         // Conditional: recent_attempts
         const allAttemptIds = ['attempts-no', 'attempts-recent-30', 'attempts-recent-90', 'attempts-long-ago'];
