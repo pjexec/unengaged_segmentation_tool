@@ -1119,6 +1119,11 @@ input[type="number"]::placeholder {
 
 .data-card-math-line strong {
     font-weight: 700;
+    color: var(--text-body);
+}
+
+.data-card-warning {
+    font-weight: 700;
     color: #ffffff;
 }
 
